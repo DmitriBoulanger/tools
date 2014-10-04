@@ -292,10 +292,10 @@ The POM ONLY contains dependency management
 				<version>${sysout-over-slf4j.version}</version>
 			</dependency>
 			
-			<!-- Samples resources, Pretty-Print -->
+			<!-- Pretty-Print -->
 			<dependency>
-				<groupId>de.dbo.samples</groupId>
-				<artifactId>util</artifactId>
+				<groupId>de.dbo.tools.utils</groupId>
+				<artifactId>print</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			

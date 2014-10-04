@@ -7,13 +7,10 @@
 	<version>0.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-	<name>Samples</name>
+	<name>Tools</name>
 	<description>
-	
-Super project for all tools. It inherits dependency-management from
-from its parent. The project itself declares very basic dependencies 
-and defines plug-in management.
-
+Super project for all tools. It imports dependency-management and 
+declares very basic dependencies and defines plug-in management.
 	</description>
 
 	<properties>
@@ -27,7 +24,8 @@ and defines plug-in management.
 	</properties>
 
 	<modules>
-		
+		<module>maven</module>
+		<module>utils</module>
 	</modules>
 
 	<build>
@@ -145,7 +143,7 @@ and defines plug-in management.
 					</dependencies>
 				</plugin>
 				<plugin>
-				<groupId>org.codehaus.mojo</groupId>
+					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>hibernate3-maven-plugin</artifactId>
 					<version>3.0</version>
 				</plugin>
@@ -180,9 +178,16 @@ and defines plug-in management.
 	</dependencyManagement>
 
 	<dependencies>
+		<!-- TEST  -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -190,6 +195,5 @@ and defines plug-in management.
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
 
 </project>
