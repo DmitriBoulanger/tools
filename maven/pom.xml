@@ -9,13 +9,13 @@
 	</parent>
 
 	<groupId>de.dbo.tools.maven</groupId>
-	<artifactId>maven</artifactId>
+	<artifactId>pom</artifactId>
 	<packaging>pom</packaging>
 	<name>Tools Maven</name>
 	<description>Maven</description>
 
 	<modules>
-		<module>plugins</module>
+		<module>project</module>
 	</modules>
 
 </project>

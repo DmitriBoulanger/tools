@@ -27,6 +27,18 @@ declares very basic dependencies and defines plug-in management.
 		<module>maven</module>
 		<module>utils</module>
 	</modules>
+	
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>de.dbo.tools</groupId>
+				<artifactId>_dependency-management</artifactId>
+				<version>0.0.0-SNAPSHOT</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<build>
 		<finalName>${project.groupId}-${project.artifactId}</finalName>
@@ -96,10 +108,6 @@ declares very basic dependencies and defines plug-in management.
 					<version>1.0-alpha-2</version>
 				</plugin>
 
-				
-				
-				
-				
 				<!--Jetty Server with Log4j and its configuration -->
 				<plugin>
 					<groupId>org.mortbay.jetty</groupId>
@@ -135,18 +143,6 @@ declares very basic dependencies and defines plug-in management.
 			</plugin>
 		</plugins>
 	</build>
-
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>de.dbo.tools</groupId>
-				<artifactId>_dependency-management</artifactId>
-				<version>0.0.0-SNAPSHOT</version>
-				<scope>import</scope>
-				<type>pom</type>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
 
 	<dependencies>
 		<!-- TEST  -->
