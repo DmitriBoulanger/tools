@@ -1,5 +1,7 @@
 package de.dbo.tools.mvn.plugin.properties;
 
+import edu.emory.mathcs.backport.java.util.Collections;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -274,7 +276,7 @@ public final class ReadPropertiesMojo extends AbstractMojo {
 	}
 	
 	//
-	// Debugging
+	// Logging
 	//
 	
 	private void logProjectProperties(final Properties properties) {
@@ -284,8 +286,13 @@ public final class ReadPropertiesMojo extends AbstractMojo {
 		} else if (properties.isEmpty()) {
 			sb.append("[]");
 		}
-		for (final Object key:properties.keySet()) {
-			sb.append("\n\t - " + key + " = " + properties.getProperty((String)key));
+		final List<String> keys = new ArrayList<String>();
+		for (final Object o:properties.keySet()) {
+			keys.add((String) o);
+		}
+		Collections.sort(keys);
+		for (final String key:keys) {
+			sb.append("\n\t - " + key + " = " + properties.getProperty(key));
 		}
 		getLog().info(sb.toString());
 	}
