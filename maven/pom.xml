@@ -10,7 +10,6 @@
 
 	<groupId>de.dbo.tools.maven</groupId>
 	<artifactId>maven</artifactId>
-	<version>0.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Tools Maven</name>
 	<description>Maven</description>
@@ -18,25 +17,5 @@
 	<modules>
 		<module>plugin</module>
 	</modules>
-
-	<dependencies>
-	
-		<!-- TEST  -->
-		<dependency>
-			<groupId>de.dbo.tools.utils</groupId>
-			<artifactId>print</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
 
 </project>

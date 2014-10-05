@@ -8,20 +8,22 @@
 		<version>0.0.0-SNAPSHOT</version>
 	</parent>
 
+	<groupId>de.dbo.tools.maven.plugin.test</groupId>
 	<artifactId>usage</artifactId>
 	<name>Tools Maven Plugins - Properties Usage</name>
 	<description>
-Usage of the Properties Plug-in: it reads artifact-jars containing
-properties as resource-files and sets the corresponding maven variables.
-For test purposes, the variables are displayed with the properties-maven-plugin
-and the values are set as system-properties in JVM using properties-maven-plugin.
-If Maven-test is used, the values of the system properties are verified
+Test artifact to explain the usage of the Properties Plug-in: it reads artifact-jars containing
+properties as resource-files and sets the corresponding maven variables in the current project.
+For test purposes, the values are set as system-properties in JVM using properties-maven-plugin
+and the values are displayed with the maven-antrun-plugin as well.
+If Maven-test is used, the values of the system properties are verified in the JUnit-test
 	</description>
 
 	<build>
 		<plugins>
+		    <!-- Properties reader -->
 			<plugin>
-				<groupId>${project.groupId}</groupId>
+				<groupId>de.dbo.tools.maven.plugin</groupId>
 				<artifactId>mvn-properties-maven-plugin</artifactId>
 				<version>${project.version}</version>
 				<executions>
@@ -41,16 +43,13 @@ If Maven-test is used, the values of the system properties are verified
 						<file>versions.properties</file>
 					</files>
 				</configuration>
+				<!-- Any artifacts (JARs) hosting the above properties -->
 				<dependencies>
-
-<!-- Any jars that host the required properties -->
-
 					<dependency>
 						<groupId>${project.groupId}</groupId>
 						<artifactId>container</artifactId>
 						<version>${project.version}</version>
 					</dependency>
-
 				</dependencies>
 			</plugin>
 
@@ -80,7 +79,7 @@ If Maven-test is used, the values of the system properties are verified
 				</executions>
 			</plugin>
 			
-			<!-- For test-purposes: to display maven-variables directly -->
+			<!-- For test-purposes: to display maven-variables as echo -->
 			<plugin>
 				<artifactId>maven-antrun-plugin</artifactId>
 				<executions>
@@ -106,7 +105,6 @@ If Maven-test is used, the values of the system properties are verified
 		<dependency>
 			<groupId>de.dbo.tools.utils</groupId>
 			<artifactId>print</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>

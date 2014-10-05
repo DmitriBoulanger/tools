@@ -38,7 +38,7 @@
 		
 		<!-- required properties packed as an artifact -->
 		<dependency>
-			<groupId>${project.groupId}</groupId>
+			<groupId>de.dbo.tools.maven.plugin.test</groupId>
 			<artifactId>container</artifactId>
 			<version>${project.version}</version>
 			<scope>test</scope>

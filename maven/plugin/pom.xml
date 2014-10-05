@@ -9,10 +9,9 @@
   
   <groupId>de.dbo.tools.maven.plugin</groupId>
   <artifactId>plugin</artifactId>
-  <version>0.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
-  <name>Tools Maven Plugins</name>
-  <description>Maven Plugins</description>
+  <name>Tools Maven Plug-ins</name>
+  <description>Maven Plug-ins</description>
   
   <modules>
   	<module>mvn-properties</module>
