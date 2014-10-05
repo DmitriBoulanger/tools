@@ -15,7 +15,7 @@
 	<description>Maven</description>
 
 	<modules>
-		<module>plugin</module>
+		<module>plugins</module>
 	</modules>
 
 </project>
