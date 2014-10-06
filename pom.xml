@@ -31,8 +31,8 @@ declares very basic dependencies and defines plug-in management.
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<groupId>de.dbo.tools</groupId>
-				<artifactId>_dependency-management</artifactId>
+				<groupId>de.dbo</groupId>
+				<artifactId>dependency-management</artifactId>
 				<version>0.0.0-SNAPSHOT</version>
 				<scope>import</scope>
 				<type>pom</type>
