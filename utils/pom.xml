@@ -3,12 +3,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>de.dbo.tools</groupId>
-		<artifactId>tools</artifactId>
+		<groupId>de.dbo</groupId>
+		<artifactId>root</artifactId>
 		<version>0.0.0-SNAPSHOT</version>
 	</parent>
 
-	<groupId>de.dbo.tools.utils</groupId>
+	<groupId>de.dbo.tools</groupId>
 	<artifactId>utils</artifactId>
 	<packaging>pom</packaging>
 	<name>Tools Utilities</name>

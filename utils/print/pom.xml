@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>de.dbo.tools.utils</groupId>
+		<groupId>de.dbo.tools</groupId>
 		<artifactId>utils</artifactId>
 		<version>0.0.0-SNAPSHOT</version>
 	</parent>

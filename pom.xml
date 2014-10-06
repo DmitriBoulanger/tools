@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>de.dbo.tools</groupId>
-	<artifactId>tools</artifactId>
+	<artifactId>tools-reactor</artifactId>
 	<version>0.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-	<name>Tools</name>
+	<name>Installer</name>
 	<description>
 Super project for all tools. It imports dependency-management and 
 declares very basic dependencies and defines plug-in management.
@@ -40,11 +40,11 @@ declares very basic dependencies and defines plug-in management.
 		</dependencies>
 	</dependencyManagement>
 
-	<build>
+<!-- 	<build>
 		<finalName>${project.groupId}-${project.artifactId}</finalName>
 		<pluginManagement>
 			<plugins>
-				<!-- JAVA -->
+				JAVA
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
@@ -58,7 +58,7 @@ declares very basic dependencies and defines plug-in management.
 					</configuration>
 				</plugin>
 				
-				<!-- MAVEN Plugins -->
+				MAVEN Plugins
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-jar-plugin</artifactId>
@@ -108,7 +108,7 @@ declares very basic dependencies and defines plug-in management.
 					<version>1.0-alpha-2</version>
 				</plugin>
 
-				<!--Jetty Server with Log4j and its configuration -->
+				Jetty Server with Log4j and its configuration
 				<plugin>
 					<groupId>org.mortbay.jetty</groupId>
 					<artifactId>maven-jetty-plugin</artifactId>
@@ -142,7 +142,7 @@ declares very basic dependencies and defines plug-in management.
 				</configuration>
 			</plugin>
 		</plugins>
-	</build>
+	</build> -->
 
 	<dependencies>
 		<!-- TEST  -->
