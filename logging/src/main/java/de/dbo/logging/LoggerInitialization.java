@@ -7,7 +7,7 @@ import org.apache.log4j.PropertyConfigurator;
 
 public class LoggerInitialization {
 
-    private static final String INTERNAL_LOGGER_CONFIG_NAME = "contex.log4j.properties";
+    private static final String INTERNAL_LOGGER_CONFIG_NAME = "dbo.log4j.properties";
 
     public static void initialize() {
         org.apache.log4j.LogManager.resetConfiguration();
@@ -35,6 +35,5 @@ public class LoggerInitialization {
             }
         }
     }
-
 }
 
