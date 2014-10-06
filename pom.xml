@@ -11,9 +11,9 @@
 Installation of tools-modules
 	</description>
  
-
 	<modules>
 		<module>utils</module>
 		<module>maven</module>
+		<module>logging</module>
 	</modules>
 </project>
