@@ -22,7 +22,7 @@
 			<artifactId>maven-plugin-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>de.dbo.tools.utils</groupId>
+			<groupId>de.dbo.tools</groupId>
 			<artifactId>print</artifactId>
 		</dependency>
 	</dependencies>

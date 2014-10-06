@@ -6,6 +6,7 @@
 		<groupId>de.dbo</groupId>
 		<artifactId>root</artifactId>
 		<version>0.0.0-SNAPSHOT</version>
+		<relativePath></relativePath>
 	</parent>
 
 	<groupId>de.dbo.tools</groupId>
