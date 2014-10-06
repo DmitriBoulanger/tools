@@ -6,7 +6,7 @@
 	<artifactId>tools-reactor</artifactId>
 	<version>0.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>Installer</name>
+	<name>Tools Installer</name>
 	<description>
 Installation of tools-modules
 	</description>

@@ -14,6 +14,16 @@
 	<packaging>jar</packaging>
 	<name>Tools Logging</name>
 	<description>Logging</description>
-
+	
+	<dependencies>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
+	</dependencies>
 
 </project>
