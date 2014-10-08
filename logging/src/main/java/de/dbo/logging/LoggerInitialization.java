@@ -13,6 +13,10 @@ import org.apache.log4j.Appender;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.PropertyConfigurator;
 
+/*
+ * origin: https://github.com/DmitriBoulanger/tools/blob/master/logging/src/main/java/de/dbo/logging/LoggerInitialization.java
+ */
+
 /**
  * Initialization of the Log4j-logger
  *
@@ -32,6 +36,16 @@ public class LoggerInitialization {
     public static final String LOGGER_CONFIG_PATH_PROPERTY     = "log4j.properties.path";
     public static final String LOGGER_CONFIG_RESOURCE_PROPERTY = "log4j.properties.resource";
 
+    private static boolean     done                            = false;
+
+    public static boolean isDone() {
+        return done;
+    }
+
+    public static void reset() {
+        done = false;
+    }
+
     /**
      *
      * @return true only if the root-logger has appenders
@@ -49,7 +63,7 @@ public class LoggerInitialization {
      * @throws Exception
      */
     public static void outAndErrToLog(boolean yes) throws Exception {
-        if (yes && isAvailable()) {
+        if (yes && isAvailable() && !systemOutputsAreSLF4JPrintStreams()) {
             sendSystemOutAndErrToSLF4J();
             return;
         }
@@ -67,8 +81,10 @@ public class LoggerInitialization {
      * @throws Exception if no resource found
      */
     public static boolean initializeLogger() throws Exception {
-        LogManager.resetConfiguration();
-        boolean done = false;
+        if (done) {
+            return isAvailable();
+        }
+        resetConfiguration();
 
         final String log4jConfigurationFilePath = System.getProperty(LOGGER_CONFIG_PATH_PROPERTY);
         final String log4jConfigurationResource = System.getProperty(LOGGER_CONFIG_RESOURCE_PROPERTY);
@@ -104,11 +120,19 @@ public class LoggerInitialization {
      * @see #isAvailable()
      */
     public static boolean initializeLogger(final String resource) throws Exception {
-        LogManager.resetConfiguration();
+        if (done) {
+            return isAvailable();
+        }
+        resetConfiguration();
         if (!initializeFromResource(resource)) {
             return false;
         }
         return isAvailable();
+    }
+
+    private static final void resetConfiguration() {
+        LogManager.resetConfiguration();
+        done = false;
     }
 
     private static boolean initializeFromFile(final File file) {

@@ -5,6 +5,7 @@ import static de.dbo.logging.LoggerInitialization.LOGGER_CONFIG_RESOURCE_PROPERT
 import static de.dbo.logging.LoggerInitialization.initializeLogger;
 import static de.dbo.logging.LoggerInitialization.isAvailable;
 import static de.dbo.logging.LoggerInitialization.outAndErrToLog;
+import static de.dbo.logging.LoggerInitialization.reset;
 import static de.dbo.tools.utils.print.Print.padRight;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -199,6 +200,7 @@ public class LoggerInitializationTest {
     private static final void clearSystemProperties() {
         System.getProperties().remove(LOGGER_CONFIG_PATH_PROPERTY);
         System.getProperties().remove(LOGGER_CONFIG_RESOURCE_PROPERTY);
+        reset();
     }
 
 
