@@ -28,6 +28,11 @@
 			<groupId>uk.org.lidalia</groupId>
 			<artifactId>sysout-over-slf4j</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>de.dbo.tools</groupId>
+			<artifactId>print</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 </project>

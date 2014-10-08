@@ -5,9 +5,14 @@ import static de.dbo.logging.LoggerInitialization.LOGGER_CONFIG_RESOURCE_PROPERT
 import static de.dbo.logging.LoggerInitialization.initializeLogger;
 import static de.dbo.logging.LoggerInitialization.isAvailable;
 import static de.dbo.logging.LoggerInitialization.outAndErrToLog;
+import static de.dbo.tools.utils.print.Print.padRight;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Collections;
+import java.util.List;
+
+import org.apache.log4j.Appender;
 import org.apache.log4j.LogManager;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -147,14 +152,45 @@ public class LoggerInitializationTest {
      * @throws Exception
      */
     @Test
-    public void testLoggerIsavailable() throws Exception {
+    public void testLoggerIsAvailable() throws Exception {
         clearSystemProperties();
         LogManager.resetConfiguration();
         assertFalse("Logger is available after reset", isAvailable());
         if (initializeLogger()) {
             assertTrue("Logger is not available after successfull initialization", isAvailable());
         }
+        log.info("Available: " + printAvailable());
     }
+
+    //
+    // TOOLS
+    //
+
+    private static StringBuilder printAvailable() {
+        final StringBuilder sb = new StringBuilder();
+        append(sb, LogManager.getRootLogger());
+        @SuppressWarnings("unchecked")
+        final List<org.apache.log4j.Logger> loggers = Collections.list(LogManager.getLoggerRepository().getCurrentLoggers());
+        for (final org.apache.log4j.Logger logger : loggers) {
+            append(sb, logger);
+        }
+        return sb;
+    }
+
+    private static final int    loggerWidth   = 15;
+    private static final int    appenderWidth = 15;
+    private static final String line          = "\n\t - ";
+
+    private static final void append(final StringBuilder sb, final org.apache.log4j.Logger logger) {
+        @SuppressWarnings("unchecked")
+        final List<Appender> appenders = Collections.list(logger.getAllAppenders());
+        for (final Appender appender : appenders) {
+            sb.append(line);
+            sb.append(padRight(logger.getName(), loggerWidth));
+            sb.append(padRight(appender.getName(), appenderWidth));
+        }
+    }
+
 
     //
     // HELPERS
@@ -164,5 +200,6 @@ public class LoggerInitializationTest {
         System.getProperties().remove(LOGGER_CONFIG_PATH_PROPERTY);
         System.getProperties().remove(LOGGER_CONFIG_RESOURCE_PROPERTY);
     }
+
 
 }
