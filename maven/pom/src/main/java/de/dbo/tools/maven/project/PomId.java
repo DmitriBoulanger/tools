@@ -1,5 +1,14 @@
 package de.dbo.tools.maven.project;
 
+/**
+ * Id of POM-instance consisting of group and artifact
+ * 
+ * @author Dmitri Boulanger, Hombach
+ *
+ * D. Knuth: Programs are meant to be read by humans and 
+ *           only incidentally for computers to execute 
+ *
+ */
 public class PomId implements Comparable<PomId>  {
 	
 	public static final String SEPARATOR = ":";
@@ -43,9 +52,7 @@ public class PomId implements Comparable<PomId>  {
 	public final boolean equals(Object o) {
 		if (o instanceof PomId) {
 			return stringValue.equals(((PomId)o).toString());
-			
 		}
 		return false;
 	}
-	
 }

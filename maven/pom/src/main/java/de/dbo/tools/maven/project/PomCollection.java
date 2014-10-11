@@ -15,7 +15,7 @@ import org.apache.maven.project.MavenProject;
 import org.springframework.core.io.Resource;
 
 /**
- *  Hash-map group --  list<pom-versions>
+ *  Hash-map group --  list[POM-instances, POM-instances, ... ]
  *   
  * @author Dmitri Boulanger, Hombach
  *
@@ -26,6 +26,13 @@ import org.springframework.core.io.Resource;
 public class PomCollection extends HashMap<String, PomInstances>  {
 	private static final long serialVersionUID = 5288975098326000671L;
 	
+	/**
+	 * creates POM-Collection from all pom.xml files matching the pattern
+	 * @param pattern to search pom.xml files
+	 * @return instance created using found pom.xml files
+	 * @throws IOException
+	 * @throws PomException
+	 */
 	public static final PomCollection newInstance(final String pattern) throws IOException, PomException  {
 		final List<Resource> items = SpringPathResources.resoucesInFilesystem(pattern);
 		final PomCollection pomCollection = new PomCollection();
@@ -47,7 +54,7 @@ public class PomCollection extends HashMap<String, PomInstances>  {
 	}
 	
 	private PomCollection() {
-		
+		// only internal usage
 	}
 
 	public void addArtifact(final Pom pom) {
@@ -62,6 +69,11 @@ public class PomCollection extends HashMap<String, PomInstances>  {
 		poms.addPom(pom);
 	}
 	
+	/**
+	 * Pretty-print of this POM-Collection
+	 * 
+	 * @return possibly large table as a string
+	 */
 	public StringBuilder print() {
 		final StringBuilder ret = new StringBuilder();
 		final List<String> groups = new ArrayList<String>(keySet());

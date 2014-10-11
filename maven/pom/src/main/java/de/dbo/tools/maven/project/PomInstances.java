@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Hash-map: pom.id -- list<versions>
+ * Hash-map: pomId -- list[POM,POM, ...]
  * 
  * @author Dmitri Boulanger, Hombach
  *

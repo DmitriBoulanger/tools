@@ -15,7 +15,7 @@ import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.apache.maven.project.MavenProject;
 
 /**
- * Important POM-information
+ * Parser/resolver for POM-files
  * 
  * @author Dmitri Boulanger, Hombach
  *
@@ -44,34 +44,34 @@ public final class Pom implements Comparable<Pom> {
 	private final File file;
 	private final MavenProject mavenProject;
 	
+	/**
+	 * creates parsed POM-instance
+	 * @param path path of a pom.xml 
+	 * @throws PomException
+	 */
 	public Pom(final String path) throws PomException {
 		this(pomFile(path));
 	}
 	
+	/**
+	 * creates parsed POM-instance
+	 * @param pomFile file of a pom.xml 
+	 * @throws PomException
+	 */
 	public Pom(final File pomFile) throws PomException {
 		this(newMavenProject(pomFile));
 	}
 	
-	public Pom(final MavenProject project) throws PomException {
+	/**
+	 * creates parsed POM-instance from maven-project
+	 * @param project maven-project instance
+	 * @throws PomException
+	 */
+	private Pom(final MavenProject project) throws PomException {
 		this(trim(project.getGroupId()), trim(project.getArtifactId()),  trim(project.getVersion())
 				, project.getFile(), project);
 	}
-	 
-	private Pom(final String group, final String artifact, final String version
-			, final File file, final MavenProject mavenProject) 
-			throws PomException {
-		if (!nn(group) || !nn(artifact)) {
-			throw new PomException("Incomplte POM "+group+":"+artifact+":"+version
-					+ " File: " + file);
-		}
-		this.mavenProject = mavenProject;
-		this.file = file;
-		
-		this.group = group.equals(GROUP_PARAMETER)? NULL_GROUP : group;
-		this.artifact = artifact.equals(ARTIFACT_PARAMETER)? NULL_ARTIFACT : artifact;
-		this.version = (!nn(version) || version.equals(VERSION_PARAMETER) )? NULL_VERSION : version;
-	}
-	
+
 	@Override
 	public final int compareTo(Pom o) {
 		return this.toString().compareTo(o.toString());
@@ -105,6 +105,21 @@ public final class Pom implements Comparable<Pom> {
 
 	public File getFile() {
 		return file;
+	}
+	
+	private Pom(final String group, final String artifact, final String version
+			, final File file, final MavenProject mavenProject) 
+			throws PomException {
+		if (!nn(group) || !nn(artifact)) {
+			throw new PomException("Incomplte POM "+group+":"+artifact+":"+version
+					+ " File: " + file);
+		}
+		this.mavenProject = mavenProject;
+		this.file = file;
+		
+		this.group = group.equals(GROUP_PARAMETER)? NULL_GROUP : group;
+		this.artifact = artifact.equals(ARTIFACT_PARAMETER)? NULL_ARTIFACT : artifact;
+		this.version = (!nn(version) || version.equals(VERSION_PARAMETER) )? NULL_VERSION : version;
 	}
 	
 	public static final File pomFile(final String path)  throws PomException {
@@ -226,8 +241,6 @@ public final class Pom implements Comparable<Pom> {
 		}
 		
 		return version;
-		
-		
 	}
 	
 	private static final StringBuilder printDependencies(final MavenProject mavenProject) {
