@@ -25,6 +25,10 @@
 			<groupId>de.dbo.tools</groupId>
 			<artifactId>print</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>de.dbo.tools</groupId>
+			<artifactId>resources</artifactId>
+		</dependency>
 	</dependencies>
 
 
