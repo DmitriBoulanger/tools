@@ -1,6 +1,6 @@
 package de.dbo.tools.maven.project;
 
-import static de.dbo.tools.utils.print.Print.*;
+import static de.dbo.tools.utils.print.Print.line;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -61,8 +61,9 @@ public final class PomInstances extends HashMap<PomId, List<Pom>> {
 		}
 		Collections.sort(versions);
 		final StringBuilder sb = new StringBuilder();
-		sb.append(new DecimalFormat("00").format(counters.get(id)));
-		sb.append("  ");
+		sb.append(" " +  id.getType());
+		sb.append(" " +  new DecimalFormat("00").format(counters.get(id)));
+		sb.append(" ");
 		sb.append(line(versions));
 		return sb;
 	}

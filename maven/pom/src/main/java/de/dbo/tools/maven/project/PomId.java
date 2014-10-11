@@ -12,16 +12,23 @@ package de.dbo.tools.maven.project;
 public class PomId implements Comparable<PomId>  {
 	
 	public static final String SEPARATOR = ":";
+	public static final String POM = "pom";
+	public static final String JAR = "jar";
 	
 	private final String group;
 	private final String artifact;
+	private final String type;
+	
+	
 	private final int hashCode;
 	private final String stringValue;
 	
-	public PomId(final String group, final String artifact) {
+	public PomId(final String group, final String artifact, final String type) {
 		this.group = group;
 		this.artifact= artifact;
-		this.stringValue = group + SEPARATOR + artifact;
+		this.type = type;
+		
+		this.stringValue = group + SEPARATOR + artifact + SEPARATOR + type;
 		this.hashCode = stringValue.hashCode();
 	}
 
@@ -33,6 +40,11 @@ public class PomId implements Comparable<PomId>  {
 		return artifact;
 	}
 	
+	
+	public String getType() {
+		return type;
+	}
+
 	@Override
 	public final int hashCode(){
 	    return hashCode;

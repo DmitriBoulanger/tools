@@ -1,5 +1,7 @@
 package de.dbo.tools.maven.project;
 
+import static de.dbo.tools.maven.project.Pom.ARTIFCAT_PRINT_WIDTH;
+import static de.dbo.tools.maven.project.Pom.GROUP_PRINT_WIDTH;
 import static de.dbo.tools.utils.print.Print.padRight;
 
 import de.dbo.tools.resources.SpringPathResources;
@@ -83,8 +85,8 @@ public class PomCollection extends HashMap<String, PomInstances>  {
 			final List<PomId> ids = new ArrayList<PomId>(poms.keySet());
 			Collections.sort(ids); 
 			for (final PomId id:ids) {
-				ret.append("\n - " + padRight(id.getGroup(),35) 
-						+ " " + padRight(id.getArtifact(),35) 
+				ret.append("\n - " + padRight(id.getGroup(),GROUP_PRINT_WIDTH) 
+						+ " " + padRight(id.getArtifact(),ARTIFCAT_PRINT_WIDTH) 
 						+ " " + poms.print(id));
 			}
 		} 
