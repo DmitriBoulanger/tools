@@ -1,13 +1,13 @@
 package de.dbo.tools.maven.project;
 
-import static de.dbo.tools.utils.print.Print.*;
+import static de.dbo.tools.utils.print.Print.padRight;
 
 import de.dbo.tools.resources.SpringPathResources;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
