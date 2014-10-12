@@ -1,5 +1,7 @@
 package de.dbo.tools.maven.project;
 
+import static de.dbo.tools.maven.project.PomPrint.print;
+
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,22 +13,22 @@ public class PomTest  {
 	public void testPom() throws Exception {
 		final String path = "pom.xml";
 		final Pom pom = new Pom(path);
-		log.info("POM [" + path +"]: " + pom.print());
+		log.info("POM [" + path +"]: " + print(pom));
 	}
 	
 	@Test
 	public void testPomDependecyManagement() throws Exception {
 		final String path = "D:/JAVA/WORKSPACES/ws/root.git/dependency-management/pom.xml";
 		final Pom pom = new Pom(path);
-		log.info("POM [" + path +"]: " + pom.print());
+		log.info("POM [" + path +"]: " + print(pom));
 	}
 	
 	@Test
 	public void testPomCollection() throws Exception {
 //		final String pattern = "../../**/pom.xml";
-//		final String pattern = "D:/JAVA/WORKSPACES/ws/samples.git/**/pom.xml";
-		final String pattern = "D:/JAVA/WORKSPACES/ws/jbehave.git/**/pom.xml";
+		final String pattern = "D:/JAVA/WORKSPACES/ws/samples.git/**/pom.xml";
+//		final String pattern = "D:/JAVA/WORKSPACES/ws/jbehave.git/**/pom.xml";
         final PomCollection pomCollection = PomCollection.newInstance(pattern);
-		log.info("POM Collection for pattern [" + pattern +"]: " + pomCollection.print());
+		log.info("POM Collection for pattern [" + pattern +"]: " + print(pomCollection));
 	}
 }

@@ -12,11 +12,23 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 public class SpringPathResources {
 	
+	/**
+	 * finds resources in the file-system
+	 * @param pattern 
+	 * @return
+	 * @throws IOException
+	 */
     public static List<Resource> resourcesInClasspath(final String pattern) throws IOException {
         final PathMatchingResourcePatternResolver patternResourceResolver = new PathMatchingResourcePatternResolver();
         return Arrays.asList(patternResourceResolver.getResources("classpath:" + pattern));
     }
     
+    /**
+     * finds resources in the class-path
+     * @param pattern
+     * @return
+     * @throws IOException
+     */
     public static List<Resource> resoucesInFilesystem(final String pattern) throws IOException {
         final PathMatchingResourcePatternResolver patternResourceResolver = new PathMatchingResourcePatternResolver();
         return Arrays.asList(patternResourceResolver.getResources("file:" + pattern));

@@ -18,12 +18,16 @@ import java.util.Map;
  *           only incidentally for computers to execute 
  *
  */
-public final class PomInstances extends HashMap<PomId, List<Pom>> {
+final class PomInstances extends HashMap<PomId, List<Pom>> {
 	private static final long serialVersionUID = 4735042994556671385L;
 	
 	private final Map<PomId, Integer> counters = new HashMap<PomId, Integer>();
+	
+	Integer counter(final PomId pomId) {
+		return counters.get(pomId);
+	}
 
-	public void addPom(final Pom pom) {
+	void addPom(final Pom pom) {
 		final PomId id = pom.id();
 		final List<Pom> pomInstances;
 		if (!containsKey(id)) {
@@ -45,11 +49,14 @@ public final class PomInstances extends HashMap<PomId, List<Pom>> {
 			counter = counters.get(id);
 			counters.put(id, new Integer(counter.intValue()  + 1));
 		}
-		
-		
 	}
 	
-	public StringBuilder print(final PomId id) {
+	/**
+	 * collected versions for given POM-ID
+	 * @param id
+	 * @return sorted list
+	 */
+	public List<String> versions(final PomId id) {
 		final List<Pom> poms = get(id);
 		final List<String> versions = new ArrayList<String>();
 		for (final Pom pom: poms) {
@@ -60,11 +67,7 @@ public final class PomInstances extends HashMap<PomId, List<Pom>> {
 			versions.add(version);
 		}
 		Collections.sort(versions);
-		final StringBuilder sb = new StringBuilder();
-		sb.append(" " +  id.getType());
-		sb.append(" " +  new DecimalFormat("00").format(counters.get(id)));
-		sb.append(" ");
-		sb.append(line(versions));
-		return sb;
+		return versions;
 	}
+
 }

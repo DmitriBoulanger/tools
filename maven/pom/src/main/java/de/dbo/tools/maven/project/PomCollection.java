@@ -1,15 +1,12 @@
 package de.dbo.tools.maven.project;
 
-import static de.dbo.tools.maven.project.Pom.ARTIFCAT_PRINT_WIDTH;
-import static de.dbo.tools.maven.project.Pom.GROUP_PRINT_WIDTH;
-import static de.dbo.tools.utils.print.Print.padRight;
-
 import de.dbo.tools.resources.SpringPathResources;
+
+import edu.emory.mathcs.backport.java.util.Collections;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -25,7 +22,7 @@ import org.springframework.core.io.Resource;
  *           only incidentally for computers to execute 
  *
  */
-public class PomCollection extends HashMap<String, PomInstances>  {
+public final class PomCollection extends HashMap<String, PomInstances>  {
 	private static final long serialVersionUID = 5288975098326000671L;
 	
 	/**
@@ -36,27 +33,41 @@ public class PomCollection extends HashMap<String, PomInstances>  {
 	 * @throws PomException
 	 */
 	public static final PomCollection newInstance(final String pattern) throws IOException, PomException  {
-		final List<Resource> items = SpringPathResources.resoucesInFilesystem(pattern);
 		final PomCollection pomCollection = new PomCollection();
-		for (Resource resource:items) {
-			final File file = resource.getFile();
-			final Pom pom = new Pom(file);
-			pomCollection.addArtifact(pom);
-			final MavenProject project = pom.getMavenProject();
-			if (null!=project) {
-				final List<Pom> dependencies = Pom.dependencies(project);
-				if (!dependencies.isEmpty()) {
-					for (final Pom dependency: dependencies) {
-						pomCollection.addArtifact(dependency);
-					}
-				}
-			}
-		}
+		pomCollection.add(pattern);
 		return pomCollection;
+	}
+	
+	/**
+	 * creates new empty POM-Collection
+	 * @return
+	 * @throws IOException
+	 * @throws PomException
+	 */
+	public static final PomCollection newInstance() throws IOException, PomException  {
+		return new PomCollection();
 	}
 	
 	private PomCollection() {
 		// only internal usage
+	}
+	
+	public void add(final String pattern) throws IOException, PomException {
+		final List<Resource> items = SpringPathResources.resoucesInFilesystem(pattern);
+		for (Resource resource:items) {
+			final File file = resource.getFile();
+			final Pom pom = new Pom(file);
+			addArtifact(pom);
+			final MavenProject project = pom.getMavenProject();
+			if (null!=project) {
+				final List<Pom> dependencies = PomResolver.dependencies(project);
+				if (!dependencies.isEmpty()) {
+					for (final Pom dependency: dependencies) {
+						addArtifact(dependency);
+					}
+				}
+			}
+		}
 	}
 
 	public void addArtifact(final Pom pom) {
@@ -72,24 +83,24 @@ public class PomCollection extends HashMap<String, PomInstances>  {
 	}
 	
 	/**
-	 * Pretty-print of this POM-Collection
-	 * 
-	 * @return possibly large table as a string
+	 * groups in this collection
+	 * @return sorted list 
 	 */
-	public StringBuilder print() {
-		final StringBuilder ret = new StringBuilder();
+	public List<String> groups() {
 		final List<String> groups = new ArrayList<String>(keySet());
 		Collections.sort(groups);
-		for (final String group:groups) {
-			final PomInstances poms =  get(group);
-			final List<PomId> ids = new ArrayList<PomId>(poms.keySet());
-			Collections.sort(ids); 
-			for (final PomId id:ids) {
-				ret.append("\n - " + padRight(id.getGroup(),GROUP_PRINT_WIDTH) 
-						+ " " + padRight(id.getArtifact(),ARTIFCAT_PRINT_WIDTH) 
-						+ " " + poms.print(id));
-			}
-		} 
-		return ret;
+		return groups;
+	}
+	
+	/**
+	 * POM-IDs in the specified group
+	 * @param group
+	 * @return sorted list
+	 */
+	public List<PomId> pomIds(final String group) {
+		final PomInstances poms =  get(group);
+		final List<PomId> ids = new ArrayList<PomId>(poms.keySet());
+		Collections.sort(ids);
+		return ids;
 	}
 }

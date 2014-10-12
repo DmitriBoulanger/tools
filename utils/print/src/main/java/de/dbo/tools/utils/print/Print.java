@@ -322,6 +322,10 @@ public final class Print {
     	return lines(properties,null,1);
     }
     
+    public static final StringBuilder lines(final Properties properties, final int level)  {
+    	return lines(properties,null,level);
+    }
+    
     public static final StringBuilder line(final Properties properties, final String filter) {
     	return lines(properties,filter,0);
     }

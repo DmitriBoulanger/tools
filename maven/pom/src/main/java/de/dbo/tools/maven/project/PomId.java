@@ -19,7 +19,6 @@ public class PomId implements Comparable<PomId>  {
 	private final String artifact;
 	private final String type;
 	
-	
 	private final int hashCode;
 	private final String stringValue;
 	
