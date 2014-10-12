@@ -39,6 +39,7 @@ public class PomTest  {
 		assertTrue(PomFile.isManaged(pom.dependencyManagement(), JAR_FILE));
 	}
 
+	/** print */
 	@Test
 	public void test02_Pom() throws Exception {
 		final String path = "pom.xml";
@@ -46,6 +47,7 @@ public class PomTest  {
 		log.info("POM: " + print(pom));
 	}
 	
+	/** print */
 	@Test
 	public void test03_PomDependecyManagement() throws Exception {
 		final String path = "D:/JAVA/WORKSPACES/ws/root.git/dependency-management/pom.xml";
@@ -53,6 +55,7 @@ public class PomTest  {
 		log.info("POM with Dependency management : " + print(pom));
 	}
 	
+	/** print */
 	@Test
 	public void test04_PomCollection() throws Exception {
 		final String pattern = "../../**/pom.xml";

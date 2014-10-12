@@ -11,8 +11,9 @@ import java.util.Set;
 public class PomFile {
 	
 	/**
-	 * checks that specified JAR-file has this POM-ID
-	 * @param file
+	 * checks that specified JAR-file has the POM-ID
+	 * @param pomId POm-ID to be found in the file-path
+	 * @param file JAR-file to be tested
 	 * @return
 	 */
 	public static final boolean hasIt(final PomId pomId, final File file) {
@@ -33,6 +34,12 @@ public class PomFile {
 		return  fileItems.containsAll(groupItems);
 	}
 	
+	/**
+	 * checks that specified JAR-file has ID of the specified POM
+	 * @param pom POM whose ID is to be found in the file-path
+	 * @param file JAR-file to be tested
+	 * @return
+	 */
 	public static final boolean hasIt(final Pom pom, final File file) {
 		if (null==file) {
 			return false;
@@ -44,6 +51,12 @@ public class PomFile {
 		return hasIt(pomId,file);
 	}
 	
+	/**
+	 * checks that specified JAR-file has ID and version of the specified POM
+	 * @param pom POM whose ID is to be found in the file-path
+	 * @param file JAR-file to be tested
+	 * @return
+	 */
 	public static final boolean hasItComplete(final Pom pom, final File file) {
 		if (null==file) {
 			return false;
@@ -58,7 +71,13 @@ public class PomFile {
 		return hasIt(pom.id(), file) && version.equals(pom.getVersion());
 	}
 	
-	public static final boolean isManaged(List<Pom> dependecyManagement, final File file) {
+	/**
+	 * checks that specified JAR-file is managed in the dependencies
+	 * @param dependecyManagement
+	 * @param file
+	 * @return
+	 */
+	public static final boolean isManaged(final List<Pom> dependecyManagement, final File file) {
 		if (null==file) {
 			return false;
 		}
@@ -76,6 +95,11 @@ public class PomFile {
 		return false;
 	}
 	
+	/**
+	 * extracts version from JAR-file
+	 * @param file
+	 * @return
+	 */
 	public static final String pomVersion(final File file) {
 		if (null==file) {
 			return null;
