@@ -85,14 +85,6 @@ public class SpringPathResourcesTest {
     }
 
     @Test
-    public final void test_ResourceNames_JUnitSetting() throws Exception {
-        final String pattern = "/.settings/*"; // in junit-4.1.jar
-        final List<URL> items = SpringPathResources.resourceFilenamesInClasspath(pattern);
-        log.info(print("Classpath Resource names for pattern [" + pattern + "]", items));
-        assertTrue(2 <= items.size());
-    }
-
-    @Test
     public final void test_ResourceNames_Classes() throws Exception {
         final String pattern = "/org/springframework/core/**/*.class"; // in spring-core-3.1.2.RELEASE.jar
         final List<URL> urls = SpringPathResources.resourceFilenamesInClasspath(pattern);
