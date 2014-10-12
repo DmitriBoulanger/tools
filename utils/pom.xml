@@ -8,10 +8,10 @@
 		<version>0.0.0-SNAPSHOT</version>
 		<relativePath></relativePath>
 	</parent>
-
 	<groupId>de.dbo.tools</groupId>
 	<artifactId>utils</artifactId>
 	<packaging>pom</packaging>
+	
 	<name>Tools Utilities</name>
 	<description>Utilities</description>
 

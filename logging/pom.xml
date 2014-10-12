@@ -8,10 +8,10 @@
 		<version>0.0.0-SNAPSHOT</version>
 		<relativePath></relativePath>
 	</parent>
-
 	<groupId>de.dbo.tools</groupId>
 	<artifactId>logging</artifactId>
 	<packaging>jar</packaging>
+	
 	<name>Tools Logging</name>
 	<description>Logging</description>
 	
