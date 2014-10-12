@@ -1,8 +1,5 @@
 package de.dbo.tools.maven.project;
 
-import static de.dbo.tools.utils.print.Print.line;
-
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;

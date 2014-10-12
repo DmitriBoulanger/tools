@@ -9,12 +9,17 @@ import static de.dbo.tools.maven.project.PomResolver.VERSION_PARAMETER;
 import static de.dbo.tools.maven.project.PomResolver.resolveParameter;
 import static de.dbo.tools.maven.project.PomResolver.newMavenProject;
 import static de.dbo.tools.maven.project.PomResolver.pomFile;
+import static de.dbo.tools.maven.project.PomResolver.toPoms;
 import static de.dbo.tools.maven.project.PomResolver.trim;
 import static de.dbo.tools.maven.project.PomResolver.nn;
 
 import java.io.File;
+import java.util.List;
 
+import org.apache.maven.model.DependencyManagement;
 import org.apache.maven.project.MavenProject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * POM Representation
@@ -26,6 +31,7 @@ import org.apache.maven.project.MavenProject;
  *
  */
 public final class Pom implements Comparable<Pom> {
+	private static final Logger log = LoggerFactory.getLogger(Pom.class);
 	
 	private final String group;
 	private final String artifact;
@@ -156,4 +162,30 @@ public final class Pom implements Comparable<Pom> {
 	public File getFile() {
 		return file;
 	}
+	
+	public final List<Pom> dependencyManagement() throws PomException {
+		final DependencyManagement dependencyManagement =  mavenProject.getDependencyManagement();
+		if (null==dependencyManagement) {
+			return null;
+		}
+		return toPoms(dependencyManagement.getDependencies(), mavenProject);
+	}
+	
+	public final boolean isManaged(final File file) throws PomException{
+		if (null==file) {
+			return false;
+		}
+		if (!file.getAbsolutePath().endsWith(".jar")) {
+			return false;
+		}
+		final  List<Pom> dependencies = dependencyManagement();
+		if ( null== dependencies) {
+			log.warn("No dependency management in POM. Can't evaluate file [" + file + "].");
+			return false;
+		}
+		
+		 
+		return false;
+	}
+
 }

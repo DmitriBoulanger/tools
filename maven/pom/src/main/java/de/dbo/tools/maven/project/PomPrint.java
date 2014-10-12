@@ -83,23 +83,22 @@ public final class PomPrint {
 		return printAsDependencies(dependencies(mavenProject));
 	}
 	
-	private static final StringBuilder printAsDependencies(final List<Pom> poms) 
-			throws PomException {
+	private static final StringBuilder printAsDependencies(final List<Pom> poms) throws PomException {
 		Collections.sort(poms);
 		final StringBuilder sb = new StringBuilder();
-		for (final Pom pom:poms) {
-			sb.append("\n\t   -- " + padRight(pom.getGroup(),GROUP_PRINT_WIDTH)
-					+  padRight(pom.getArtifact(),ARTIFCAT_PRINT_WIDTH) 
-					+ " " + pom.getVersion());
+		for ( final Pom pom:poms ){
+			sb.append("\n\t   --");
+			sb.append( " " + padRight(pom.getGroup(),GROUP_PRINT_WIDTH));
+			sb.append( " " + padRight(pom.getArtifact(),ARTIFCAT_PRINT_WIDTH));
+			sb.append( " " + pom.getVersion());
 		}
 		return sb;
 	}
 	
-	private static final StringBuilder printDependencyManagement(final MavenProject mavenProject) 
-			throws PomException {
+	private static final StringBuilder printDependencyManagement(final MavenProject mavenProject) throws PomException {
 		final StringBuilder sb = new StringBuilder();
 		final DependencyManagement dependencyManagement =  mavenProject.getDependencyManagement();
-		if (null==dependencyManagement) {
+		if ( null==dependencyManagement ){
 			sb.append("NULL");
 			return sb;
 		}

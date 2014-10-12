@@ -55,7 +55,7 @@ final class PomResolver  {
 		if(!pomFile.canRead()) {
 			throw new PomException("Pom-file is not readable: " + path);
 		}
-		return pomFile;
+		return new File(pomFile.getAbsolutePath());
 	}
 	
 	static final MavenProject newMavenProject(final File pomFile) throws PomException {
