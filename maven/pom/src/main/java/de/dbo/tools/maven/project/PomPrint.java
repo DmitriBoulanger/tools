@@ -64,6 +64,9 @@ public final class PomPrint {
             if (pomFilter.isGroupMinus(group)) {
                 continue;
             }
+            if (!pomFilter.isGroupPlus(group)) {
+                continue;
+            }
             final PomInstances poms = pomCollection.get(group);
             final List<PomId> ids = pomCollection.pomIds(group);
             for (final PomId id : ids) {

@@ -1,6 +1,5 @@
 package de.dbo.tools.maven.project;
 
-import static de.dbo.tools.utils.print.Print.padRight;
 
 public final class PomFilter {
 
@@ -46,7 +45,10 @@ public final class PomFilter {
     }
 
     public boolean isGroupPlus(final String group) {
-        return null == groupPlus || -1 != group.indexOf(groupPlus);
+        if (null == groupPlus) {
+            return true;
+        }
+        return -1 != group.indexOf(groupPlus);
     }
 
     public boolean isGroupMinus(final String group) {
@@ -57,7 +59,10 @@ public final class PomFilter {
     }
 
     public boolean isArtifactPlus(final String artifact) {
-        return null == artifactPlus || -1 != artifact.indexOf(artifactPlus);
+        if (null == artifactPlus) {
+            return true;
+        }
+        return -1 != artifact.indexOf(artifactPlus);
     }
 
     public boolean isArtifactMinus(final String artifact) {
@@ -83,16 +88,23 @@ public final class PomFilter {
         return isGroupMinus(pomId.getGroup()) && isArtifactMinus(pomId.getArtifact());
     }
 
-    private static final int FILTER_WIDTH = 10;
     public StringBuffer print() {
         final StringBuffer sb = new StringBuffer();
-        sb.append("\n\t - group:    +[" + padRight(n(groupPlus), FILTER_WIDTH) + "] -[" + padRight(n(groupMinus), FILTER_WIDTH) + "]");
-        sb.append("\n\t - artifact: +[" + padRight(n(artifactPlus), FILTER_WIDTH) + "] -[" + padRight(n(artifactMinus), FILTER_WIDTH) + "]");
+        if (null == groupMinus && null == groupPlus && null == artifactMinus && null == artifactPlus) {
+            return new StringBuffer("[]");
+        }
+
+        if (null != groupMinus || null != groupPlus) {
+            sb.append(" group: " + n(groupPlus, '+') + " " + n(groupMinus, '-'));
+        }
+        if (null != artifactMinus || null != artifactPlus) {
+            sb.append(" artifact: " + n(artifactPlus, '+') + " " + n(artifactMinus, '-'));
+        }
         return sb;
     }
 
-    private static final String n(final String x) {
-        return null == x ? " " : x.trim();
+    private static final String n(final String x, final char sign) {
+        return null == x ? "" : sign + "[" + x.trim() + "]";
     }
 
 }
