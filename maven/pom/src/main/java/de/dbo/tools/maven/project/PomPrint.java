@@ -2,12 +2,9 @@ package de.dbo.tools.maven.project;
 
 import static de.dbo.tools.maven.project.PomResolver.dependencies;
 import static de.dbo.tools.maven.project.PomResolver.toPoms;
-
 import static de.dbo.tools.utils.print.Print.line;
 import static de.dbo.tools.utils.print.Print.lines;
 import static de.dbo.tools.utils.print.Print.padRight;
-
-import edu.emory.mathcs.backport.java.util.Collections;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -15,12 +12,14 @@ import java.util.List;
 import org.apache.maven.model.DependencyManagement;
 import org.apache.maven.project.MavenProject;
 
+import edu.emory.mathcs.backport.java.util.Collections;
+
 public final class PomPrint {
-	
+
 	private static final int GROUP_PRINT_WIDTH    = 40;
 	private static final int ARTIFCAT_PRINT_WIDTH = 40;
 	private static final String COUNTER_DF        = "00";
-	
+
 	/**
 	 * Pretty-print of a POM
 	 * @return several table-lines
@@ -46,30 +45,41 @@ public final class PomPrint {
 			sb.append("\n\t - Maven Project Properties Preserved : " + lines(mavenProject.getPreservedProperties(),2));
 			sb.append("\n\t - Maven Project Dependencies         : " + printDependencies(mavenProject));
 			sb.append("\n\t - Maven Project DependencyManagement : " + printDependencyManagement(mavenProject));
-		} 
+		}
         return sb;
 	}
-	
+
 	/**
 	 * Pretty-print of a POM-Collection
-	 * 
+	 *
 	 * @return possibly large table as a string
 	 */
 	public static StringBuilder print(final PomCollection pomCollection) {
-		final StringBuilder ret = new StringBuilder();
-		for (final String group:pomCollection.groups()) {
-			final PomInstances poms =  pomCollection.get(group);
-			final List<PomId> ids = pomCollection.pomIds(group);
-			for ( final PomId id:ids ){
-				ret.append("\n -");
-				ret.append(" " + padRight(id.getGroup(), GROUP_PRINT_WIDTH));
-				ret.append(" " + padRight(id.getArtifact(), ARTIFCAT_PRINT_WIDTH));
-				ret.append(" " + printVersions(id,poms));
-			}
-		} 
-		return ret;
+        return print(pomCollection, new PomFilter());
 	}
-	
+
+    public static StringBuilder print(final PomCollection pomCollection, final PomFilter pomFilter) {
+        final StringBuilder ret = new StringBuilder();
+        for (final String group : pomCollection.groups()) {
+            if (pomFilter.isGroupMinus(group)) {
+                continue;
+            }
+            final PomInstances poms = pomCollection.get(group);
+            final List<PomId> ids = pomCollection.pomIds(group);
+            for (final PomId id : ids) {
+                final String artifact = id.getArtifact();
+                if (pomFilter.isArtifactMinus(artifact)) {
+                    continue;
+                }
+                ret.append("\n -");
+                ret.append(" " + padRight(group, GROUP_PRINT_WIDTH));
+                ret.append(" " + padRight(artifact, ARTIFCAT_PRINT_WIDTH));
+                ret.append(" " + printVersions(id, poms));
+            }
+        }
+        return ret;
+    }
+
 	private static StringBuilder printVersions(final PomId id, final PomInstances pomInstances) {
 		final StringBuilder sb = new StringBuilder();
 		sb.append(" " +  id.getType());
@@ -78,12 +88,12 @@ public final class PomPrint {
 		sb.append(line(pomInstances.versions(id)));
 		return sb;
 	}
-	
+
 	private static final StringBuilder printDependencies(final MavenProject mavenProject) throws PomException {
-		return printAsDependencies(dependencies(mavenProject));
+        return print(dependencies(mavenProject));
 	}
-	
-	private static final StringBuilder printAsDependencies(final List<Pom> poms) throws PomException {
+
+    public static final StringBuilder print(final List<Pom> poms) throws PomException {
 		Collections.sort(poms);
 		final StringBuilder sb = new StringBuilder();
 		for ( final Pom pom:poms ){
@@ -94,7 +104,7 @@ public final class PomPrint {
 		}
 		return sb;
 	}
-	
+
 	private static final StringBuilder printDependencyManagement(final MavenProject mavenProject) throws PomException {
 		final StringBuilder sb = new StringBuilder();
 		final DependencyManagement dependencyManagement =  mavenProject.getDependencyManagement();
@@ -102,6 +112,6 @@ public final class PomPrint {
 			sb.append("NULL");
 			return sb;
 		}
-		return printAsDependencies(toPoms(dependencyManagement.getDependencies(), mavenProject));
+        return print(toPoms(dependencyManagement.getDependencies(), mavenProject));
 	}
 }

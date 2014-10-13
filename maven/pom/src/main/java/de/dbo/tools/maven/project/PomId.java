@@ -1,13 +1,5 @@
 package de.dbo.tools.maven.project;
 
-import static de.dbo.tools.utils.print.Print.line;
-
-import java.io.File;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 /**
  * Id of POM-instance consisting of group and artifact
  * 
