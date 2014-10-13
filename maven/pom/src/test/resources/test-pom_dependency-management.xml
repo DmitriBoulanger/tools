@@ -1,0 +1,680 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>de.mycom</groupId>
+	<artifactId>__mycx_dependencies</artifactId>
+	<version>0.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>MY CX Dependency Management</name>
+
+	<properties>
+
+		<!-- Logging -->
+		<slf4j-api.version>1.6.1</slf4j-api.version>
+		<slf4j-log4j12.version>1.6.1</slf4j-log4j12.version>
+		<log4j.version>1.2.16</log4j.version>
+		<jboss-logging.version>3.1.1.GA</jboss-logging.version>
+	
+		<!-- JUnit -->
+		<junit.version>4.10</junit.version>
+
+		<!-- IX -->
+		<mycom-root-3.version>1.1.3</mycom-root-3.version>
+		<mycom-root-4.version>1.1.4</mycom-root-4.version>
+		
+		<mycom-commons.version>1.1.9-SNAPSHOT</mycom-commons.version>
+		<mycom-layout-api.version>1.2-SNAPSHOT</mycom-layout-api.version>
+		<mycom-layout-impl.version>1.1.2-SNAPSHOT</mycom-layout-impl.version>
+		<mycom-layout-resources.version>1.1.5-SNAPSHOT</mycom-layout-resources.version>
+		<ix-hibernate.version>1.0.9-SNAPSHOT</ix-hibernate.version>
+		<essentials.version>2.3.6-SNAPSHOT</essentials.version>
+		
+		<!-- IX etc -->
+		<security.version>2.3.3</security.version>
+		<lingua.version>2.3.3</lingua.version>
+		<libnki.version>1.0.2</libnki.version>
+		<lib-opennlp-models.version>1.0.1-SNAPSHOT</lib-opennlp-models.version>
+		<opennlp-tools.version>1.5.3</opennlp-tools.version>
+		
+		<!-- License -->
+		<license.version>1.1.4-SNAPSHOT</license.version>
+		<license-api.version>1.1</license-api.version>
+		<license-client.version>1.1.2</license-client.version>
+
+		<!-- Scheduler -->
+		<mycom-scheduler-api.version>1.2-SNAPSHOT</mycom-scheduler-api.version>
+		<mycom-scheduler-client.version>1.1.2-SNAPSHOT</mycom-scheduler-client.version>
+		<mycom-scheduler-impl.version>1.1.4-SNAPSHOT</mycom-scheduler-impl.version>
+
+		<!-- Insight -->
+		<insight.version>1.1.2-SNAPSHOT</insight.version>
+		
+		<!-- CX -->
+		<contex-dev.version>1.1.4</contex-dev.version>
+		<cx-libs.version>2.3.14-SNAPSHOT</cx-libs.version>
+		<cx-baselibs.version>2.3.4-SNAPSHOT</cx-baselibs.version>
+		<contex.version>${cx-libs.version}</contex.version>
+		<contex-dao.version>${cx-baselibs.version}</contex-dao.version>
+		<contex-export-service.version>${cx-libs.version}</contex-export-service.version>
+
+		<!-- =========================================================================================================================== -->
+		<!-- THIRD PARTY -->
+
+		<!-- critical: versions below have to be consistent! -->
+		<hibernate.version>4.2.1.Final</hibernate.version>
+		<spring.version>3.1.2.RELEASE</spring.version>
+		<cglib.version>2.2.2</cglib.version>
+		<asm.version>3.1</asm.version>
+		<antlr.version>3.4</antlr.version>
+		<neo4j-cypher-compiler-2.1.version>2.1.2</neo4j-cypher-compiler-2.1.version>
+
+		<!-- commons -->
+		<commons-logging.version>1.1.3</commons-logging.version>
+		<commons-codec.version>1.8</commons-codec.version>
+		<commons-lang.version>2.6</commons-lang.version>
+		<commons-net.version>2.2</commons-net.version>
+		<commons-beanutils.version>1.8.3</commons-beanutils.version>
+		<commons-httpclient.version>3.1</commons-httpclient.version>
+		
+		<!-- plexus -->
+		<plexus-utils.version>3.0.10</plexus-utils.version>
+
+		<!-- XML -->
+		<xalan.version>2.7.1</xalan.version>
+		<xercesImpl.version>2.9.1</xercesImpl.version>
+		<xstream.version>1.4.5</xstream.version>
+
+		<!-- PDF -->
+		<pdfbox.version>1.8.4</pdfbox.version>
+		<pdfrenderer.version>1.0</pdfrenderer.version>
+
+		<tika-core.version>1.5</tika-core.version>
+		<jackson-mapper-asl.version>1.9.2</jackson-mapper-asl.version>
+		<lucene.version>4.8.1</lucene.version>
+		
+		<!-- com google -->
+		<guava.version>15.0</guava.version>
+		<ejml.version>0.23</ejml.version>
+		<jsr305.version>1.3.9</jsr305.version>
+
+		<jboss-transaction-api_1.1_spec.version>1.0.1.Final</jboss-transaction-api_1.1_spec.version>
+
+		<filters.version>2.0.235-1</filters.version>
+		<libsvm.version>3.17</libsvm.version>
+		<httpcore.version>4.3.1</httpcore.version>
+		<poi-scratchpad.version>3.10-beta2</poi-scratchpad.version>
+		<hadoop-core.version>1.0.1</hadoop-core.version>
+		<scala-library.version>2.10.4</scala-library.version>
+
+		<!-- javax -->
+		<activation.version>1.1.1</activation.version>
+
+		<!-- MY THIRD PARTY -->
+		<eclipselink.version>2.5.1</eclipselink.version>
+		<elasticsearch.version>1.0.1</elasticsearch.version>
+		<joda-time.version>2.3</joda-time.version>
+		<commons-io.version>2.4</commons-io.version>
+		
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+		
+			<!-- Logging -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${slf4j-api.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-log4j12</artifactId>
+				<version>${slf4j-log4j12.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>log4j</groupId>
+				<artifactId>log4j</artifactId>
+				<version>${log4j.version}</version>
+			</dependency>
+		
+			<!-- Scheduler -->
+			<dependency>
+				<groupId>de.mycom</groupId>
+				<artifactId>mycom-scheduler-client</artifactId>
+				<version>${mycom-scheduler-client.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.mycom</groupId>
+				<artifactId>mycom-scheduler-api</artifactId>
+				<version>${mycom-scheduler-api.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.mycom</groupId>
+				<artifactId>mycom-scheduler</artifactId>
+				<version>${mycom-scheduler-impl.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.mycom</groupId>
+				<artifactId>mycom-scheduler-jobs</artifactId>
+				<version>${mycom-scheduler-impl.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.mycom</groupId>
+				<artifactId>mycom-scheduler-persistence</artifactId>
+				<version>${mycom-scheduler-impl.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.mycom</groupId>
+				<artifactId>mycom-scheduler-ui-swing</artifactId>
+				<version>${mycom-scheduler-impl.version}</version>
+			</dependency>
+
+			<!-- Insight -->
+			<dependency>
+				<groupId>de.mycom</groupId>
+				<artifactId>insight-api</artifactId>
+				<version>${insight.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.mycom</groupId>
+				<artifactId>insight-contex-elasticsearch</artifactId>
+				<version>${insight.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.mycom</groupId>
+				<artifactId>insight-core</artifactId>
+				<version>${insight.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.mycom</groupId>
+				<artifactId>insight-view</artifactId>
+				<version>${insight.version}</version>
+			</dependency>
+
+			<!-- License -->
+			<dependency>
+				<groupId>de.mycom</groupId>
+				<artifactId>license-ui-swing</artifactId>
+				<version>${license.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.mycom</groupId>
+				<artifactId>license-service</artifactId>
+				<version>${license.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.mycom</groupId>
+				<artifactId>license-client</artifactId>
+				<version>${license-client.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.mycom</groupId>
+				<artifactId>license-api</artifactId>
+				<version>${license-api.version}</version>
+			</dependency>
+
+			<!-- ITyX Layout -->
+			<dependency>
+				<groupId>de.mycom</groupId>
+				<artifactId>layout-api</artifactId>
+				<version>${mycom-layout-api.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.mycom</groupId>
+				<artifactId>layout-resources</artifactId>
+				<version>${mycom-layout-resources.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.mycom</groupId>
+				<artifactId>layout-impl</artifactId>
+				<version>${mycom-layout-impl.version}</version>
+			</dependency>
+
+			<!-- ITYX etc -->
+			<dependency>
+				<groupId>de.mycom</groupId>
+				<artifactId>ix-hibernate</artifactId>
+				<version>${ix-hibernate.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.mycom</groupId>
+				<artifactId>mycom-commons</artifactId>
+				<version>${mycom-commons.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.mycom</groupId>
+				<artifactId>essentials</artifactId>
+				<version>${essentials.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.mycom</groupId>
+				<artifactId>lingua</artifactId>
+				<version>${lingua.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.mycom</groupId>
+				<artifactId>libnki</artifactId>
+				<version>${libnki.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.mycom</groupId>
+				<artifactId>lib-opennlp-models</artifactId>
+				<version>${lib-opennlp-models.version}</version>
+			</dependency>
+
+			<!-- CX -->
+			<dependency>
+				<groupId>de.mycom</groupId>
+				<artifactId>contexpd</artifactId>
+				<version>${contex.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.mycom</groupId>
+				<artifactId>contexplain</artifactId>
+				<version>${contex.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.mycom</groupId>
+				<artifactId>contex-base</artifactId>
+				<version>${cx-baselibs.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.mycom</groupId>
+				<artifactId>contex-service</artifactId>
+				<version>${cx-baselibs.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.mycom</groupId>
+				<artifactId>contex-export-service</artifactId>
+				<version>${contex.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.mycom</groupId>
+				<artifactId>hardware-info-service</artifactId>
+				<version>${cx-baselibs.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.mycom</groupId>
+				<artifactId>contex-dao</artifactId>
+				<version>${cx-baselibs.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>de.mycom</groupId>
+				<artifactId>ixtag</artifactId>
+				<version>${contex.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.mycom</groupId>
+				<artifactId>ixtag-api</artifactId>
+				<version>${contex.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.mycom</groupId>
+				<artifactId>ixtag-gui</artifactId>
+				<version>${contex.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>de.mycom</groupId>
+				<artifactId>librarymanager</artifactId>
+				<version>${contex.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>de.mycom</groupId>
+				<artifactId>management-server</artifactId>
+				<version>${contex.version}</version>
+			</dependency>
+
+			<!-- Basics -->
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>${junit.version}</version>
+			</dependency>
+
+			<!-- CONTEX-DEV and its managed dependencies -->
+
+			<dependency>
+				<groupId>de.mycom</groupId>
+				<artifactId>contex-dev</artifactId>
+				<version>${contex-dev.version}</version>
+			</dependency>
+
+			<!-- VERY SPECIAL THINGS! -->
+			<dependency>
+				<groupId>cglib</groupId>
+				<artifactId>cglib</artifactId>
+				<version>${cglib.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>asm</groupId>
+				<artifactId>asm</artifactId>
+				<version>${asm.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.antlr</groupId>
+				<artifactId>antlr-runtime</artifactId>
+				<version>${antlr.version}</version>
+			</dependency>
+
+			<!-- JAVAX -->
+			<dependency>
+				<groupId>javax.activation</groupId>
+				<artifactId>activation</artifactId>
+				<version>${activation.version}</version>
+			</dependency>
+
+			<!-- =========================================================================================================================== -->
+			<!-- THIRD PARTY -->
+
+			<!-- commons -->
+			<dependency>
+				<groupId>commons-logging</groupId>
+				<artifactId>commons-logging</artifactId>
+				<version>${commons-logging.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>${commons-io.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-lang</groupId>
+				<artifactId>commons-lang</artifactId>
+				<version>${commons-lang.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-codec</groupId>
+				<artifactId>commons-codec</artifactId>
+				<version>${commons-codec.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-net</groupId>
+				<artifactId>commons-net</artifactId>
+				<version>${commons-net.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-beanutils</groupId>
+				<artifactId>commons-beanutils</artifactId>
+				<version>${commons-beanutils.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-httpclient</groupId>
+				<artifactId>commons-httpclient</artifactId>
+				<version>${commons-httpclient.version}</version>
+			</dependency>
+
+			<!-- xml -->
+			<dependency>
+				<groupId>xalan</groupId>
+				<artifactId>xalan</artifactId>
+				<version>${xalan.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>xerces</groupId>
+				<artifactId>xercesImpl</artifactId>
+				<version>${xercesImpl.version}</version>
+			</dependency>
+			
+			<!-- org -->
+
+			<!-- org apache -->
+			<dependency>
+				<groupId>org.apache.pdfbox</groupId>
+				<artifactId>pdfbox</artifactId>
+				<version>${pdfbox.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.tika</groupId>
+				<artifactId>tika-core</artifactId>
+				<version>${tika-core.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.opennlp-tools</groupId>
+				<artifactId>opennlp-tools</artifactId>
+				<version>${opennlp-tools.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpcore</artifactId>
+				<version>${httpcore.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>poi-scratchpad</artifactId>
+				<version>${poi-scratchpad.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.hadoop</groupId>
+				<artifactId>hadoop-core</artifactId>
+				<version>${hadoop-core.version}</version>
+			</dependency>
+
+			<!-- org jboss -->
+			<dependency>
+				<groupId>org.jboss.logging</groupId>
+				<artifactId>jboss-logging</artifactId>
+				<version>${jboss-logging.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jboss.spec.javax.transaction</groupId>
+				<artifactId>jboss-transaction-api_1.1_spec</artifactId>
+				<version>${jboss-transaction-api_1.1_spec.version}</version>
+			</dependency>
+
+			<!-- org -->
+			<dependency>
+				<groupId>org.codehaus.jackson</groupId>
+				<artifactId>jackson-mapper-asl</artifactId>
+				<version>${jackson-mapper-asl.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.scala-lang</groupId>
+				<artifactId>scala-library</artifactId>
+				<version>${scala-library.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.neo4j</groupId>
+				<artifactId>neo4j-cypher-compiler-2.1</artifactId>
+				<version>${neo4j-cypher-compiler-2.1.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.codehaus.plexus</groupId>
+				<artifactId>plexus-utils</artifactId>
+				<version>${plexus-utils.version}</version>
+			</dependency>
+
+			<!-- com google -->
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				<version>${guava.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.googlecode.efficient-java-matrix-library</groupId>
+				<artifactId>ejml</artifactId>
+				<version>${ejml.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.google.code.findbugs</groupId>
+				<artifactId>jsr305</artifactId>
+				<version>${jsr305.version}</version>
+			</dependency>
+
+			<!-- com -->
+
+			<dependency>
+				<groupId>com.jhlabs</groupId>
+				<artifactId>filters</artifactId>
+				<version>${filters.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.sun.pdfview</groupId>
+				<artifactId>pdfrenderer</artifactId>
+				<version>${pdfrenderer.version}</version>
+			</dependency>
+			<dependency>
+					<groupId>com.thoughtworks.xstream</groupId>
+					<artifactId>xstream</artifactId>
+					<version>${xstream.version}</version>
+			</dependency>
+
+			<!-- etc -->
+			<dependency>
+				<groupId>tw.edu.ntu.csie</groupId>
+				<artifactId>libsvm</artifactId>
+				<version>${libsvm.version}</version>
+			</dependency>
+
+			<!-- SPRING -->
+			
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-core</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-ldap</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context-support</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-tx</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-jms</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-orm</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-test</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-core</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-taglibs</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-config</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-beans</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-expression</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-aop</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-remoting</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-core</artifactId>
+				<version>${hibernate.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-c3p0</artifactId>
+				<version>${hibernate.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-entitymanager</artifactId>
+				<version>${hibernate.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-validator</artifactId>
+				<version>4.2.0.Final</version>
+			</dependency>
+			<dependency>
+				<groupId>com.mchange</groupId>
+				<artifactId>c3p0</artifactId>
+				<version>0.9.2</version>
+			</dependency>
+
+			<!-- Lucene -->
+
+			<dependency>
+				<groupId>org.apache.lucene</groupId>
+				<artifactId>lucene-core</artifactId>
+				<version>${lucene.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.lucene</groupId>
+				<artifactId>lucene-queries</artifactId>
+				<version>${lucene.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.lucene</groupId>
+				<artifactId>lucene-analyzers-common</artifactId>
+				<version>${lucene.version}</version>
+			</dependency>
+
+
+			<!-- MY THIRD PARTY -->
+
+			<dependency>
+				<groupId>org.eclipse.persistence</groupId>
+				<artifactId>eclipselink</artifactId>
+				<version>${eclipselink.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.elasticsearch</groupId>
+				<artifactId>elasticsearch</artifactId>
+				<version>${elasticsearch.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>joda-time</groupId>
+				<artifactId>joda-time</artifactId>
+				<version>${joda-time.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>uk.org.lidalia</groupId>
+				<artifactId>sysout-over-slf4j</artifactId>
+				<version>1.0.2</version>
+			</dependency>
+
+		</dependencies>
+	</dependencyManagement>
+</project>

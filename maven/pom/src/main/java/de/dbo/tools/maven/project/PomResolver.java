@@ -50,10 +50,10 @@ final class PomResolver  {
 		}
 		final File pomFile = new File(path);
 		if(!pomFile.exists()) {
-			throw new PomException("Pom-file doesn't exist: " + path);
+            throw new PomException("Pom-file doesn't exist: " + pomFile.getAbsolutePath());
 		}
 		if(!pomFile.canRead()) {
-			throw new PomException("Pom-file is not readable: " + path);
+            throw new PomException("Pom-file is not readable: " + pomFile.getAbsolutePath());
 		}
 		return new File(pomFile.getAbsolutePath());
 	}

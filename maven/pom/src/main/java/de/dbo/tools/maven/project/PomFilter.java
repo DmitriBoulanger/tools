@@ -50,7 +50,10 @@ public final class PomFilter {
     }
 
     public boolean isGroupMinus(final String group) {
-        return null != groupMinus && -1 != group.indexOf(groupMinus);
+        if (null == groupMinus) {
+            return false;
+        }
+        return -1 != group.indexOf(groupMinus);
     }
 
     public boolean isArtifactPlus(final String artifact) {
@@ -58,15 +61,26 @@ public final class PomFilter {
     }
 
     public boolean isArtifactMinus(final String artifact) {
-        return null != artifactMinus && -1 != artifact.indexOf(artifactMinus);
+        if (null == artifactMinus) {
+            return false;
+        }
+        return -1 != artifact.indexOf(artifactMinus);
     }
 
     public boolean isPlus(final Pom pom) {
-        return isGroupPlus(pom.getGroup()) && isArtifactPlus(pom.getArtifact());
+        return isPlus(pom.id());
     }
 
     public boolean isMinus(final Pom pom) {
-        return isGroupMinus(pom.getGroup()) && isArtifactMinus(pom.getArtifact());
+        return isMinus(pom.id());
+    }
+
+    public boolean isPlus(final PomId pomId) {
+        return isGroupPlus(pomId.getGroup()) && isArtifactPlus(pomId.getArtifact());
+    }
+
+    public boolean isMinus(final PomId pomId) {
+        return isGroupMinus(pomId.getGroup()) && isArtifactMinus(pomId.getArtifact());
     }
 
     private static final int FILTER_WIDTH = 10;
