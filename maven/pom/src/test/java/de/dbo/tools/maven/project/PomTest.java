@@ -16,6 +16,8 @@ public class PomTest  {
 
 	private static final File JAR_FILE =
 			new File("X:/fa/ga/ga/ga/repo-XX-sitory/org/springframework/spring-core/3.1.2.RELEASE/spring-core-3.1.2.RELEASE.jar");
+	
+	private static final String DEPENDENCY_MANAGEMENT_PATH = "src/test/resources/test-pom_dependency-management.xml";
 
 
 	/**
@@ -34,9 +36,20 @@ public class PomTest  {
 	 */
 	@Test
     public void testPomDependecyManagementFile() throws Exception {
-        final String path = "src/test/resources/test-pom_dependency-management.xml";
-		final Pom pom = new Pom(path);
+		final Pom pom = new Pom(DEPENDENCY_MANAGEMENT_PATH);
 		assertTrue(PomFile.isManaged(pom.dependencyManagement(), JAR_FILE));
+	}
+	
+	/** print */
+	@Test
+    public void testPomCollectionPrint() throws Exception {
+		final String pattern = "../../**/pom.xml";
+        final Pom management = new Pom("src/test/resources/test-pom_dependency-management.xml");
+        final PomCollection pomCollection = PomCollection.newInstance(pattern);
+        final PomPrint pomPrint = new PomPrint();
+        log.info("POM Collection for pattern [" + pattern + "]: " + pomPrint.print(pomCollection, management));
+        pomPrint.error(log);
+        pomPrint.warn(log);
 	}
 
     @Test
@@ -132,18 +145,9 @@ public class PomTest  {
 	/** print */
 	@Test
     public void testPomDependecyManagementPrint() throws Exception {
-        final String path = "src/test/resources/test-pom_dependency-management.xml";
-		final Pom pom = new Pom(path);
+		final Pom pom = new Pom(DEPENDENCY_MANAGEMENT_PATH);
 		log.info("POM with Dependency management : " + print(pom));
 	}
 
-	/** print */
-	@Test
-    public void testPomCollectionPrint() throws Exception {
-		final String pattern = "../../**/pom.xml";
-        final Pom management = new Pom("src/test/resources/test-pom_dependency-management.xml");
-        final PomCollection pomCollection = PomCollection.newInstance(pattern);
-        final PomPrint pomPrint = new PomPrint();
-        log.info("POM Collection for pattern [" + pattern + "]: " + pomPrint.print(pomCollection, management));
-	}
+
 }

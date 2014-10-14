@@ -137,7 +137,7 @@ public final class PomPrint {
             }
         }
         final StringBuilder sb = new StringBuilder();
-        sb.append(" " + "MYCX MANAGEMENT: ");
+        sb.append(" " + "MANAGEMENT: ");
         if (null != managedVersion) {
             sb.append(padRight(managedVersion, VERSION_PRINT_WIDTH));
         }
