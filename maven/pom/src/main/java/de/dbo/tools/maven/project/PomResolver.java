@@ -1,6 +1,6 @@
 package de.dbo.tools.maven.project;
 
-import static de.dbo.tools.maven.project.PomId.JAR;
+import static de.dbo.tools.maven.project.PomId.UNKNOWN_TYPE;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -137,7 +137,7 @@ final class PomResolver  {
 		final String group = resolveParameter(trim(dependency.getGroupId()),mavenProject) ;
 		final String artifact = trim(dependency.getArtifactId());
 		final String version = resolveParameter(trim(dependency.getVersion()),mavenProject);
-		final Pom pom = new Pom(group,artifact,JAR,version); /* virtual instance! */
+		final Pom pom = new Pom(group,artifact,UNKNOWN_TYPE,version); /* virtual instance! */
 		return pom;
 	}
 
@@ -152,7 +152,7 @@ final class PomResolver  {
 		// General parameter: property?
 
 		if (null==mavenProject) {
-			log.warn("Parameter " + parameter + " is not resolvable: Maven-project is null");
+            log.warn("Parameter " + parameter + " is not resolvable: Maven-project is null");
 			return parameter;
 		}
 
@@ -162,26 +162,26 @@ final class PomResolver  {
 		if (parameter.equals(PROJECT_GROUP_PARAMETER) && nn(mavenProject.getGroupId()))  {
 			return mavenProject.getGroupId();
 		}
+        if (null == mavenProject.getProperties() && mavenProject.getProperties().isEmpty()) {
+            log.warn("Parameter " + parameter + " is not resolvable: Maven-properties are not available");
+            return parameter;
+        }
 
+        final Properties mavenProperties = mavenProject.getProperties();
+        final String name = parameterName(parameter);
+        if (!nn(name)) {
+            log.error("Parameter " + parameter + " is not resolvable: name is null or empty");
+            return parameter;
+        }
 
-		if (null!=mavenProject.getProperties() && !mavenProject.getProperties().isEmpty())  {
-			final Properties mavenProperties = mavenProject.getProperties();
-			final String name = parameterName(parameter);
-			if (!nn(name)) {
-				log.warn("Parameter " + parameter + " is not resolvable: name not found in Maven-properties");
-				return parameter;
-			}
-			final String value =  mavenProperties.getProperty(name);
-			if (nn(value)) {
-                return isParameter(value) ? resolveParameter(value, mavenProject) : value;
-			} else {
-				log.warn("Parameter " + parameter + " is not resolvable: value is null or empty in Maven-properties");
-				return parameter;
-			}
-		} else {
-			log.warn("Parameter " + parameter + " is not resolvable: Maven-properties are not available");
-			return parameter;
-		}
+        // resolve with maven-properties
+        final String value = mavenProperties.getProperty(name);
+        if (!nn(value)) {
+            log.warn("Parameter " + parameter + " is not resolvable: value is null or empty in Maven-properties");
+            return parameter;
+        }
+
+        return isParameter(value) && !value.equals(parameter) ? resolveParameter(value, mavenProject) : value;
 	}
 
 	// HELPERS
@@ -221,9 +221,7 @@ final class PomResolver  {
 		if (!x.startsWith(PREFIX_PARAMETER)) {
 			return null;
 		}
-		return x.replace(PREFIX_PARAMETER, "")
-				.replace(NAMEBEGIN_PARAMETER, "")
-				.replace(NAMEEND_PARAMETER,"");
+        return x.replace(PREFIX_PARAMETER, "").replace(NAMEBEGIN_PARAMETER, "").replace(NAMEEND_PARAMETER, "");
 	}
 
 	private static final String parameterBody(final String x) {

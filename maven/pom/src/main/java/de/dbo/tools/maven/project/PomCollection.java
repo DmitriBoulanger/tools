@@ -75,6 +75,12 @@ public final class PomCollection extends HashMap<String, PomInstances>  {
 						addArtifact(dependency);
 					}
 				}
+                final List<Pom> management = pom.dependencyManagement();
+                if (null != management && !management.isEmpty()) {
+                    for (final Pom dependency : management) {
+                        addArtifact(dependency);
+                    }
+                }
 			}
 		}
 	}

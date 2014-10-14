@@ -11,9 +11,9 @@ import java.util.Set;
 public class PomFile {
 	
 	/**
-	 * checks that specified JAR-file has the POM-ID
+	 * checks that specified JAR_TYPE-file has the POM-ID
 	 * @param pomId POm-ID to be found in the file-path
-	 * @param file JAR-file to be tested
+	 * @param file JAR_TYPE-file to be tested
 	 * @return
 	 */
 	public static final boolean hasIt(final PomId pomId, final File file) {
@@ -35,9 +35,9 @@ public class PomFile {
 	}
 	
 	/**
-	 * checks that specified JAR-file has ID of the specified POM
+	 * checks that specified JAR_TYPE-file has ID of the specified POM
 	 * @param pom POM whose ID is to be found in the file-path
-	 * @param file JAR-file to be tested
+	 * @param file JAR_TYPE-file to be tested
 	 * @return
 	 */
 	public static final boolean hasIt(final Pom pom, final File file) {
@@ -52,9 +52,9 @@ public class PomFile {
 	}
 	
 	/**
-	 * checks that specified JAR-file has ID and version of the specified POM
+	 * checks that specified JAR_TYPE-file has ID and version of the specified POM
 	 * @param pom POM whose ID is to be found in the file-path
-	 * @param file JAR-file to be tested
+	 * @param file JAR_TYPE-file to be tested
 	 * @return
 	 */
 	public static final boolean hasItComplete(final Pom pom, final File file) {
@@ -72,7 +72,7 @@ public class PomFile {
 	}
 	
 	/**
-	 * checks that specified JAR-file is managed in the dependencies
+	 * checks that specified JAR_TYPE-file is managed in the dependencies
 	 * @param dependecyManagement
 	 * @param file
 	 * @return
@@ -96,7 +96,7 @@ public class PomFile {
 	}
 	
 	/**
-	 * extracts version from JAR-file
+	 * extracts version from JAR_TYPE-file
 	 * @param file
 	 * @return
 	 */

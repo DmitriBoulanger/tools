@@ -6,12 +6,12 @@ import static de.dbo.tools.maven.project.PomResolver.NULL_ARTIFACT;
 import static de.dbo.tools.maven.project.PomResolver.NULL_GROUP;
 import static de.dbo.tools.maven.project.PomResolver.NULL_VERSION;
 import static de.dbo.tools.maven.project.PomResolver.VERSION_PARAMETER;
-import static de.dbo.tools.maven.project.PomResolver.resolveParameter;
 import static de.dbo.tools.maven.project.PomResolver.newMavenProject;
+import static de.dbo.tools.maven.project.PomResolver.nn;
 import static de.dbo.tools.maven.project.PomResolver.pomFile;
+import static de.dbo.tools.maven.project.PomResolver.resolveParameter;
 import static de.dbo.tools.maven.project.PomResolver.toPoms;
 import static de.dbo.tools.maven.project.PomResolver.trim;
-import static de.dbo.tools.maven.project.PomResolver.nn;
 
 import java.io.File;
 import java.util.List;
@@ -23,46 +23,46 @@ import org.slf4j.LoggerFactory;
 
 /**
  * POM Representation
- * 
+ *
  * @author Dmitri Boulanger, Hombach
  *
- * D. Knuth: Programs are meant to be read by humans and 
- *           only incidentally for computers to execute 
+ * D. Knuth: Programs are meant to be read by humans and
+ *           only incidentally for computers to execute
  *
  */
 public final class Pom implements Comparable<Pom> {
 	private static final Logger log = LoggerFactory.getLogger(Pom.class);
-	
+
 	private final String group;
 	private final String artifact;
 	private final String version;
 	private final String type;
-	
+
 	private final PomId pomId;
 	private final String stringValue;
-	
+
 	/* File and/or MavenProject can be null! */
 	private final File file;
 	private final MavenProject mavenProject;
-	
+
 	/**
 	 * creates parsed POM-instance
-	 * @param path path of a pom.xml 
+	 * @param path path of a pom.xml
 	 * @throws PomException
 	 */
 	public Pom(final String path) throws PomException {
 		this(pomFile(path));
 	}
-	
+
 	/**
 	 * creates parsed POM-instance
-	 * @param pomFile file of a pom.xml 
+	 * @param pomFile file of a pom.xml
 	 * @throws PomException
 	 */
 	public Pom(final File pomFile) throws PomException {
 		this(newMavenProject(pomFile));
 	}
-	
+
 	/**
 	 * creates virtual POM-instance (no file neither project are available)
 	 * @param group
@@ -74,7 +74,7 @@ public final class Pom implements Comparable<Pom> {
 	Pom(final String group, final String artifact, final String type, final String version) throws PomException{
 		this(group,artifact,type,version, null, null);
 	}
-	
+
 	/**
 	 * creates parsed POM-instance from maven-project
 	 * @param project maven-project instance
@@ -124,21 +124,21 @@ public final class Pom implements Comparable<Pom> {
 		this.pomId = new PomId(this.group, this.artifact, this.type);
 		this.stringValue = this.id() + PomId.SEPARATOR + this.version;
 	}
-	 
+
 	@Override
 	public final int compareTo(Pom o) {
 		return this.id().compareTo(o.id());
 	}
-	
+
 	@Override
 	public final String toString() {
 		return stringValue;
 	}
-	
+
 	public PomId id() {
 		return pomId;
 	}
-	
+
 	public String getGroup() {
 		return group;
 	}
@@ -146,7 +146,7 @@ public final class Pom implements Comparable<Pom> {
 	public String getArtifact() {
 		return artifact;
 	}
-	
+
 	public String getType() {
 		return type;
 	}
@@ -154,7 +154,7 @@ public final class Pom implements Comparable<Pom> {
 	public String getVersion() {
 		return version;
 	}
-	
+
 	public MavenProject getMavenProject() {
 		return mavenProject;
 	}
@@ -162,7 +162,7 @@ public final class Pom implements Comparable<Pom> {
 	public File getFile() {
 		return file;
 	}
-	
+
 	public final List<Pom> dependencyManagement() throws PomException {
 		final DependencyManagement dependencyManagement =  mavenProject.getDependencyManagement();
 		if (null==dependencyManagement) {
@@ -170,7 +170,20 @@ public final class Pom implements Comparable<Pom> {
 		}
 		return toPoms(dependencyManagement.getDependencies(), mavenProject);
 	}
-	
+
+    public final String managementVesrion(final PomId pomId) throws PomException {
+	    final List<Pom> management = dependencyManagement();
+	    if (null==management || management.isEmpty()) {
+	        return null;
+	    }
+	    for (final Pom managementItem:management) {
+            if (managementItem.id().equals(pomId)) {
+                return managementItem.getVersion();
+	        }
+	    }
+	    return null;
+	}
+
 	public final boolean isManaged(final File file) throws PomException{
 		if (null==file) {
 			return false;
@@ -183,8 +196,8 @@ public final class Pom implements Comparable<Pom> {
 			log.warn("No dependency management in POM. Can't evaluate file [" + file + "].");
 			return false;
 		}
-		
-		 
+
+
 		return false;
 	}
 

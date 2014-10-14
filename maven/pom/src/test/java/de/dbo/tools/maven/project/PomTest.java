@@ -19,7 +19,7 @@ public class PomTest  {
 
 
 	/**
-	 * check that specified JAR-file has the given POM-ID and specified version
+	 * check that specified JAR_TYPE-file has the given POM-ID and specified version
 	 */
 	@Test
     public void testPomFile() {
@@ -29,7 +29,7 @@ public class PomTest  {
 	}
 
 	/**
-	 * check that JAR-file occurs in the dependency-management of the specified POM.
+	 * check that JAR_TYPE-file occurs in the dependency-management of the specified POM.
 	 * The POM is supposed to have a dependency-management section
 	 */
 	@Test
@@ -141,7 +141,9 @@ public class PomTest  {
 	@Test
     public void testPomCollectionPrint() throws Exception {
 		final String pattern = "../../**/pom.xml";
+        final Pom management = new Pom("src/test/resources/test-pom_dependency-management.xml");
         final PomCollection pomCollection = PomCollection.newInstance(pattern);
-		log.info("POM Collection for pattern [" + pattern +"]: " + print(pomCollection));
+        final PomPrint pomPrint = new PomPrint();
+        log.info("POM Collection for pattern [" + pattern + "]: " + pomPrint.print(pomCollection, management));
 	}
 }
