@@ -1,5 +1,7 @@
 package de.dbo.tools.maven.project;
 
+import static de.dbo.tools.maven.project.PomResolver.nn;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -8,18 +10,18 @@ import java.util.Map;
 
 /**
  * Hash-map: pomId -- list[POM,POM, ...]
- * 
+ *
  * @author Dmitri Boulanger, Hombach
  *
- * D. Knuth: Programs are meant to be read by humans and 
- *           only incidentally for computers to execute 
+ * D. Knuth: Programs are meant to be read by humans and
+ *           only incidentally for computers to execute
  *
  */
 final class PomInstances extends HashMap<PomId, List<Pom>> {
 	private static final long serialVersionUID = 4735042994556671385L;
-	
+
 	private final Map<PomId, Integer> counters = new HashMap<PomId, Integer>();
-	
+
 	Integer counter(final PomId pomId) {
 		return counters.get(pomId);
 	}
@@ -33,11 +35,11 @@ final class PomInstances extends HashMap<PomId, List<Pom>> {
 		} else {
 			pomInstances = get(id);
 		}
-		
+
 		if ( ! pomInstances.contains(pom)) {
 			pomInstances.add(pom);
 		}
-		
+
 		final Integer counter;
 		if (!counters.containsKey(id)) {
 			counter = new Integer(1);
@@ -47,7 +49,7 @@ final class PomInstances extends HashMap<PomId, List<Pom>> {
 			counters.put(id, new Integer(counter.intValue()  + 1));
 		}
 	}
-	
+
 	/**
 	 * collected versions for given POM-ID
 	 * @param id
@@ -66,5 +68,25 @@ final class PomInstances extends HashMap<PomId, List<Pom>> {
 		Collections.sort(versions);
 		return versions;
 	}
+
+    public List<String> types(final PomId id) {
+        final List<Pom> poms = get(id);
+        final List<String> types = new ArrayList<String>();
+        for (final Pom pom : poms) {
+            final String type = pom.getType();
+            if (!nn(type)) {
+                continue;
+            }
+            if (types.contains(type)) {
+                continue;
+            }
+            types.add(type);
+        }
+        if (!nn(id.getType()) && types.contains(id.getType())) {
+            types.add(id.getType());
+        }
+        Collections.sort(types);
+        return types;
+    }
 
 }

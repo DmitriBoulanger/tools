@@ -11,10 +11,11 @@ package de.dbo.tools.maven.project;
  */
 public class PomId implements Comparable<PomId>  {
 
-	public static final String SEPARATOR = ":";
-	public static final String POM = "pom";
-    public static final String JAR_TYPE     = "jar";
-    public static final String UNKNOWN_TYPE = "   ";
+    public static final String SEPARATOR      = ":";
+    public static final String POM            = "pom";
+    public static final String JAR_TYPE       = "jar";
+    public static final String REFERENCE_TYPE = "ref";
+    public static final String UNKNOWN_TYPE   = "xxx";
 
 	private final String group;
 	private final String artifact;

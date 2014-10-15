@@ -1,6 +1,6 @@
 package de.dbo.tools.maven.project;
 
-import static de.dbo.tools.maven.project.PomId.UNKNOWN_TYPE;
+import static de.dbo.tools.maven.project.PomId.REFERENCE_TYPE;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -137,7 +137,7 @@ final class PomResolver  {
 		final String group = resolveParameter(trim(dependency.getGroupId()),mavenProject) ;
 		final String artifact = trim(dependency.getArtifactId());
 		final String version = resolveParameter(trim(dependency.getVersion()),mavenProject);
-		final Pom pom = new Pom(group,artifact,UNKNOWN_TYPE,version); /* virtual instance! */
+        final Pom pom = new Pom(group, artifact, REFERENCE_TYPE, version); /* virtual instance! */
 		return pom;
 	}
 

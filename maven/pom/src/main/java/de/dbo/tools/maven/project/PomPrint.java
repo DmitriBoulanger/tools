@@ -1,5 +1,7 @@
 package de.dbo.tools.maven.project;
 
+import static de.dbo.tools.maven.project.PomId.JAR_TYPE;
+import static de.dbo.tools.maven.project.PomId.REFERENCE_TYPE;
 import static de.dbo.tools.maven.project.PomResolver.NULL_VERSION;
 import static de.dbo.tools.maven.project.PomResolver.dependencies;
 import static de.dbo.tools.maven.project.PomResolver.toPoms;
@@ -107,12 +109,21 @@ public final class PomPrint {
         return ret;
     }
 
-	private static StringBuilder printVersions(final PomId id, final PomInstances pomInstances) {
+    private StringBuilder printVersions(final PomId id, final PomInstances pomInstances) {
         final List<String> versions = pomInstances.versions(id);
         versions.remove(NULL_VERSION);
         final String listPrint = "[" + line(versions).toString().trim().replaceAll(" ", ", ") + "]";
+        final List<String> types = pomInstances.types(id);
+        if (types.size() > 1) {
+            types.remove(REFERENCE_TYPE);
+        }
+        if (types.size() > 1) {
+            final String idPrint = id.getArtifact() + PomId.SEPARATOR + id.getGroup();
+            error.add("POM " + idPrint + " has several types: " + line(types));
+        }
+        final String typePrint = types.contains(JAR_TYPE) ? "jar" : types.size() > 0 ? types.get(0) : "";
 		final StringBuilder sb = new StringBuilder();
-        sb.append(" " + padRight(id.getType(), TYPE_PRINT_WIDTH));
+        sb.append(" " + padRight(typePrint, TYPE_PRINT_WIDTH));
         sb.append(" " + new DecimalFormat(COUNTER_DF).format(pomInstances.counter((id))));
 		sb.append(" ");
         if (!versions.isEmpty()) {

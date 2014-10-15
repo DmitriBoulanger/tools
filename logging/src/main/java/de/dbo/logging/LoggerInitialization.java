@@ -185,6 +185,7 @@ public class LoggerInitialization {
 
     private static final int    loggerWidth   = 65;
     private static final int    appenderWidth = 15;
+    private static final int    levelWidth    = 8;
     private static final String line          = "\n\t - ";
 
     static final void append(final StringBuilder sb, final org.apache.log4j.Logger logger) {
@@ -193,7 +194,9 @@ public class LoggerInitialization {
         for (final Appender appender : appenders) {
             sb.append(line);
             sb.append(padRight(logger.getName(), loggerWidth));
+            sb.append(padRight(logger.getLevel().toString(), levelWidth));
             sb.append(padRight(appender.getName(), appenderWidth));
+
         }
     }
 }
