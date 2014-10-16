@@ -1,6 +1,7 @@
 package de.dbo.tools.maven.project;
 
 import static de.dbo.tools.maven.project.PomId.JAR_TYPE;
+import static de.dbo.tools.maven.project.PomId.POM_TYPE;
 import static de.dbo.tools.maven.project.PomId.REFERENCE_TYPE;
 import static de.dbo.tools.maven.project.PomResolver.NULL_VERSION;
 import static de.dbo.tools.maven.project.PomResolver.dependencies;
@@ -28,6 +29,8 @@ public final class PomPrint {
     private static final int    ARTIFCAT_PRINT_WIDTH = 40;
     private static final int    VERSION_PRINT_WIDTH  = 20;
     private static final String COUNTER_DF           = "00";
+
+    private static final String MANGEMENT_TITLE      = "MANAGEMENT";
 
     public void warn(final Logger log) {
         for (final String message : warn) {
@@ -102,17 +105,52 @@ public final class PomPrint {
                 ret.append("\n -");
                 ret.append(" " + padRight(group, GROUP_PRINT_WIDTH));
                 ret.append(" " + padRight(artifact, ARTIFCAT_PRINT_WIDTH));
-                ret.append(" " + printManagement(id, management, poms));
-                ret.append(" " + printVersions(id, poms));
+                ret.append(" " + printManagementTypeVersions(id, management, poms));
+                //                ret.append(" " + printVersions(id, poms));
             }
         }
         return ret;
     }
 
-    private StringBuilder printVersions(final PomId id, final PomInstances pomInstances) {
+    //    private StringBuilder printVersionsX(final PomId id, final PomInstances pomInstances) {
+    //        final List<String> versions = pomInstances.versions(id);
+    //        versions.remove(NULL_VERSION);
+    //        final String listPrint = "[" + line(versions).toString().trim().replaceAll(" ", ", ") + "]";
+    //        final List<String> types = pomInstances.types(id);
+    //        if (types.size() > 1) {
+    //            types.remove(REFERENCE_TYPE);
+    //        }
+    //        if (types.size() > 1) {
+    //            final String idPrint = id.getArtifact() + PomId.SEPARATOR + id.getGroup();
+    //            error.add("POM " + idPrint + " has several types: " + line(types));
+    //        }
+    //        final String typePrint = types.contains(JAR_TYPE) ? "jar" : types.size() > 0 ? types.get(0) : "";
+    //		final StringBuilder sb = new StringBuilder();
+    //        sb.append(" " + padRight(typePrint, TYPE_PRINT_WIDTH));
+    //        sb.append(" " + new DecimalFormat(COUNTER_DF).format(pomInstances.counter((id))));
+    //		sb.append(" ");
+    //        if (!versions.isEmpty()) {
+    //            sb.append(listPrint);
+    //        }
+    //		return sb;
+    //	}
+
+    private StringBuilder printManagementTypeVersions(final PomId id, final Pom management, final PomInstances pomInstances) throws PomException {
+        final String managedVersion = management.managementVesrion(id);
         final List<String> versions = pomInstances.versions(id);
         versions.remove(NULL_VERSION);
-        final String listPrint = "[" + line(versions).toString().trim().replaceAll(" ", ", ") + "]";
+        final String versionsPrint = "[" + line(versions).toString().trim().replaceAll(" ", ", ") + "]";
+        if (null != managedVersion && !versions.contains(managedVersion)) {
+            final String idPrint = id.getArtifact() + PomId.SEPARATOR + id.getGroup();
+            if (!versions.isEmpty()) {
+                error.add("Managed version " + managedVersion + " for " + idPrint
+                        + " is not in the version-list " + versionsPrint + " available in the sources");
+            }
+            else {
+                warn.add("Managed version " + managedVersion + " for " + idPrint + ": no versions in the source found");
+            }
+        }
+
         final List<String> types = pomInstances.types(id);
         if (types.size() > 1) {
             types.remove(REFERENCE_TYPE);
@@ -121,39 +159,28 @@ public final class PomPrint {
             final String idPrint = id.getArtifact() + PomId.SEPARATOR + id.getGroup();
             error.add("POM " + idPrint + " has several types: " + line(types));
         }
-        final String typePrint = types.contains(JAR_TYPE) ? "jar" : types.size() > 0 ? types.get(0) : "";
-		final StringBuilder sb = new StringBuilder();
-        sb.append(" " + padRight(typePrint, TYPE_PRINT_WIDTH));
-        sb.append(" " + new DecimalFormat(COUNTER_DF).format(pomInstances.counter((id))));
-		sb.append(" ");
-        if (!versions.isEmpty()) {
-            sb.append(listPrint);
-        }
-		return sb;
-	}
+        final boolean isJarType = types.contains(JAR_TYPE);
+        final boolean isPomType = types.contains(POM_TYPE);
+        final String typePrint = isJarType ? "JAR" : types.size() > 0 ? types.get(0) : "";
 
-    private StringBuilder printManagement(final PomId id, final Pom management, final PomInstances pomInstances) throws PomException {
-        final String managedVersion = management.managementVesrion(id);
-        final List<String> versions = pomInstances.versions(id);
-        versions.remove(NULL_VERSION);
-        if (null != managedVersion && !versions.contains(managedVersion)) {
-            final String idPrint = id.getArtifact() + PomId.SEPARATOR + id.getGroup();
-            final String listPrint = "[" + line(versions).toString().trim() + "]";
-            if (!versions.isEmpty()) {
-                error.add("Managed version " + managedVersion + " for " + idPrint
-                        + " is not in the version-list " + listPrint + " available in the sources");
+        final StringBuilder sb = new StringBuilder();
+        if (!isPomType) {
+            sb.append(" " + MANGEMENT_TITLE + ": ");
+            if (null != managedVersion) {
+                sb.append(padRight(managedVersion, VERSION_PRINT_WIDTH));
             }
             else {
-                warn.add("Managed version " + managedVersion + " for " + idPrint + ": no versions in the source found");
+                sb.append(padRight("", VERSION_PRINT_WIDTH));
             }
         }
-        final StringBuilder sb = new StringBuilder();
-        sb.append(" " + "MANAGEMENT: ");
-        if (null != managedVersion) {
-            sb.append(padRight(managedVersion, VERSION_PRINT_WIDTH));
-        }
         else {
-            sb.append(padRight("", VERSION_PRINT_WIDTH));
+            sb.append(padRight("", VERSION_PRINT_WIDTH + MANGEMENT_TITLE.length() + 3));
+        }
+        sb.append(" " + padRight(typePrint, TYPE_PRINT_WIDTH));
+        sb.append(" " + new DecimalFormat(COUNTER_DF).format(pomInstances.counter((id))));
+        sb.append(" ");
+        if (!versions.isEmpty()) {
+            sb.append(versionsPrint);
         }
 
         return sb;

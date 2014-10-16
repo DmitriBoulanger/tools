@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
  *
  */
 final class PomResolver  {
-	private static final Logger log = LoggerFactory.getLogger(PomResolver.class);
+    private static final Logger log                       = LoggerFactory.getLogger(PomResolver.class);
 
 	public static final String NULL_GROUP    = "null";
 	public static final String NULL_ARTIFACT = "null";
@@ -163,21 +163,24 @@ final class PomResolver  {
 			return mavenProject.getGroupId();
 		}
         if (null == mavenProject.getProperties() && mavenProject.getProperties().isEmpty()) {
-            log.warn("Parameter " + parameter + " is not resolvable: Maven-properties are not available");
+            log.warn("Parameter " + parameter + " is not resolvable: Maven-properties are not available in "
+                    + mavenProject.getGroupId() + PomId.SEPARATOR + mavenProject.getArtifactId());
             return parameter;
         }
 
         final Properties mavenProperties = mavenProject.getProperties();
         final String name = parameterName(parameter);
         if (!nn(name)) {
-            log.error("Parameter " + parameter + " is not resolvable: name is null or empty");
+            log.error("Parameter " + parameter + " is not resolvable: name is null or empty in "
+                    + mavenProject.getGroupId() + PomId.SEPARATOR + mavenProject.getArtifactId());
             return parameter;
         }
 
         // resolve with maven-properties
         final String value = mavenProperties.getProperty(name);
         if (!nn(value)) {
-            log.warn("Parameter " + parameter + " is not resolvable: value is null or empty in Maven-properties");
+            log.warn("Parameter " + parameter + " is not resolvable: value is null or empty in Maven-properties in "
+                    + mavenProject.getGroupId() + PomId.SEPARATOR + mavenProject.getArtifactId());
             return parameter;
         }
 
