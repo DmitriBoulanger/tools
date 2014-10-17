@@ -3,6 +3,7 @@ package de.dbo.tools.maven.project;
 import static de.dbo.tools.maven.project.PomPrint.print;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
@@ -16,7 +17,7 @@ public class PomTest  {
 
 	private static final File JAR_FILE =
 			new File("X:/fa/ga/ga/ga/repo-XX-sitory/org/springframework/spring-core/3.1.2.RELEASE/spring-core-3.1.2.RELEASE.jar");
-	
+
 	private static final String DEPENDENCY_MANAGEMENT_PATH = "src/test/resources/test-pom_dependency-management.xml";
 
 
@@ -37,9 +38,9 @@ public class PomTest  {
 	@Test
     public void testPomDependecyManagementFile() throws Exception {
 		final Pom pom = new Pom(DEPENDENCY_MANAGEMENT_PATH);
-		assertTrue(PomFile.isManaged(pom.dependencyManagement(), JAR_FILE));
+        assertNotNull(PomFile.isManaged(pom.dependencyManagement(), JAR_FILE));
 	}
-	
+
 	/** print */
 	@Test
     public void testPomCollectionPrint() throws Exception {
@@ -51,6 +52,12 @@ public class PomTest  {
         pomPrint.error(log);
         pomPrint.warn(log);
 	}
+
+    @Test
+    public void testJarToPom() throws Exception {
+        final Pom pom = PomFile.pom("de\\com\\mchange\\mchange-commons-java\\0.2.3.3\\mchange-commons-java-0.2.3.3.jar");
+        log.info("POM from JAR: " + PomPrint.print(pom));
+    }
 
     @Test
     public void testPomFilter() throws Exception {

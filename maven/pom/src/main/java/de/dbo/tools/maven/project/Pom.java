@@ -201,4 +201,25 @@ public final class Pom implements Comparable<Pom> {
 		return false;
 	}
 
+    public final String xmlDependency() {
+        final StringBuilder sb = new StringBuilder();
+        sb.append("\n<dependency>");
+
+        sb.append("\n\t<groupId>");
+        sb.append(getGroup());
+        sb.append("</groupId>");
+
+        sb.append("\n\t<artifactId>");
+        sb.append(getArtifact());
+        sb.append("</artifactId>");
+
+        sb.append("\n\t<version>");
+        sb.append(getVersion());
+        sb.append("</version>");
+
+        sb.append("\n</dependency>");
+
+        return sb.toString();
+    }
+
 }
