@@ -5,6 +5,7 @@ import static de.dbo.tools.utils.print.Print.padRight;
 import java.io.File;
 import java.net.URL;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.apache.log4j.Appender;
@@ -177,6 +178,13 @@ public class LoggerInitialization {
         append(sb, LogManager.getRootLogger());
         @SuppressWarnings("unchecked")
         final List<org.apache.log4j.Logger> loggers = Collections.list(LogManager.getLoggerRepository().getCurrentLoggers());
+        Collections.sort(loggers, new Comparator<org.apache.log4j.Logger>() {
+            @Override
+            public int compare(org.apache.log4j.Logger o1, org.apache.log4j.Logger o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+
+        });
         for (final org.apache.log4j.Logger logger : loggers) {
             append(sb, logger);
         }

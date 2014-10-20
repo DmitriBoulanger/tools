@@ -112,29 +112,6 @@ public final class PomPrint {
         return ret;
     }
 
-    //    private StringBuilder printVersionsX(final PomId id, final PomInstances pomInstances) {
-    //        final List<String> versions = pomInstances.versions(id);
-    //        versions.remove(NULL_VERSION);
-    //        final String listPrint = "[" + line(versions).toString().trim().replaceAll(" ", ", ") + "]";
-    //        final List<String> types = pomInstances.types(id);
-    //        if (types.size() > 1) {
-    //            types.remove(REFERENCE_TYPE);
-    //        }
-    //        if (types.size() > 1) {
-    //            final String idPrint = id.getArtifact() + PomId.SEPARATOR + id.getGroup();
-    //            error.add("POM " + idPrint + " has several types: " + line(types));
-    //        }
-    //        final String typePrint = types.contains(JAR_TYPE) ? "jar" : types.size() > 0 ? types.get(0) : "";
-    //		final StringBuilder sb = new StringBuilder();
-    //        sb.append(" " + padRight(typePrint, TYPE_PRINT_WIDTH));
-    //        sb.append(" " + new DecimalFormat(COUNTER_DF).format(pomInstances.counter((id))));
-    //		sb.append(" ");
-    //        if (!versions.isEmpty()) {
-    //            sb.append(listPrint);
-    //        }
-    //		return sb;
-    //	}
-
     private StringBuilder printManagementTypeVersions(final PomId id, final Pom management, final PomInstances pomInstances) throws PomException {
         final String managedVersion = management.managementVesrion(id);
         final List<String> versions = pomInstances.versions(id);
