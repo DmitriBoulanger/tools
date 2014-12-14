@@ -11,10 +11,10 @@ import java.util.Set;
 
 public class PomFile {
 
-	    /**
+    /**
      * checks that specified JAR-file has the specified POM-ID
      * @param pomId POM-ID to be found in the file-path
-     * @param file JAR_TYPE-file to be tested
+     * @param file JAR-file to be tested
      * @return
      */
 	public static final boolean hasIt(final PomId pomId, final File file) {
@@ -64,7 +64,7 @@ public class PomFile {
 
 
 	/**
-	 * checks that specified JAR_TYPE-file has ID of the specified POM
+	 * checks that specified JAR_TY-file has ID of the specified POM
 	 * @param pom POM whose ID is to be found in the file-path
 	 * @param file JAR_TYPE-file to be tested
 	 * @return
