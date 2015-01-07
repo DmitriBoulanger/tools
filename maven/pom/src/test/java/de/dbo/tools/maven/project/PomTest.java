@@ -49,8 +49,9 @@ public class PomTest  {
         final PomCollection pomCollection = PomCollection.newInstance(pattern);
         final PomPrint pomPrint = new PomPrint();
         log.info("POM Collection for pattern [" + pattern + "]: " + pomPrint.print(pomCollection, management));
-        pomPrint.error(log);
+        pomPrint.info(log);
         pomPrint.warn(log);
+        pomPrint.error(log);
 	}
 
     @Test

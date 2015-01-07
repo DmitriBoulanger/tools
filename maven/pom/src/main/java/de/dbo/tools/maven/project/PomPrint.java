@@ -23,6 +23,7 @@ import edu.emory.mathcs.backport.java.util.Collections;
 public final class PomPrint {
     private final List<String>  warn                 = new ArrayList<String>();
     private final List<String>  error                = new ArrayList<String>();
+    private final List<String>  info                 = new ArrayList<String>();
 
     private static final int    TYPE_PRINT_WIDTH     = 3;
     private static final int    GROUP_PRINT_WIDTH    = 40;
@@ -44,6 +45,13 @@ public final class PomPrint {
             log.error(message);
         }
         error.clear();
+    }
+
+    public void info(final Logger log) {
+        for (final String message : info) {
+            log.info(message);
+        }
+        info.clear();
     }
 
 	/**
@@ -120,11 +128,14 @@ public final class PomPrint {
         if (null != managedVersion && !versions.contains(managedVersion)) {
             final String idPrint = id.getArtifact() + PomId.SEPARATOR + id.getGroup();
             if (!versions.isEmpty()) {
-                error.add("Managed version " + managedVersion + " for " + idPrint
+                error.add(padRight(idPrint, 60) + ": managed version " + padRight(managedVersion, 40)
                         + " is not in the version-list " + versionsPrint + " available in the sources");
             }
+            else if (-1 == idPrint.indexOf("ityx")) {
+                info.add(padRight(idPrint, 60) + ": managed version " + (padRight(managedVersion, 40)) + ": no versions in the source found");
+            }
             else {
-                warn.add("Managed version " + managedVersion + " for " + idPrint + ": no versions in the source found");
+                warn.add(padRight(idPrint, 60) + ": managed version " + (padRight(managedVersion, 40)) + ": no versions in the source found");
             }
         }
 
