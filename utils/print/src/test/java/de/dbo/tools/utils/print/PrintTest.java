@@ -25,6 +25,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -364,7 +366,7 @@ public class PrintTest {
     	final Map<?,?> map2 = sampleNonPrintableMap(2000);
     	final Map<?,?> map3 = sampleNonPrintableMap(3000);
     	
-    	final Map<String,Object> mapWithMaps = new HashMap<String,Object>();
+    	final SortedMap<String,Object> mapWithMaps = new TreeMap<String,Object>();
     	mapWithMaps.put("x",  map);
     	mapWithMaps.put("x2", map2);
     	mapWithMaps.put("x3", map3);
@@ -376,7 +378,7 @@ public class PrintTest {
     	assertTrue(8==mapWithMaps.size());
     	
     	final String cpCardinality = cpCardinality(mapWithMaps).toString();
-    	final String cpCardinalityExpected = "CP-cardinaliy[3x0x0x1x0x3x3x3] = 000 000 081";
+    	final String cpCardinalityExpected = "CP-cardinaliy[3x3x3x1x0x0x0x3] = 000 000 081";
     	log.debug(cpCardinality);
     	assertTrue("cpCardinaly is not correct: " + cpCardinality
     			+ " Expected "+cpCardinalityExpected
